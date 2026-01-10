@@ -185,3 +185,33 @@ when i have your permission.
 - Applications can be managed via `/admin/applications`
 - Thank-you page displays at `/jobs/thank-you` after form submission
 
+
+Hey Jon, update on authentication and database:
+
+✅ Database setup — complete
+-Neon PostgreSQL is connected and working
+-All schemas (User, JobApplication, CuratedJob, etc.) are deployed
+-Data is being saved correctly
+
+✅ Authentication & JWT tokens — complete
+-NextAuth is fully implemented and working
+-JWT tokens are generated and stored correctly
+-Login/logout works
+-Role-based access control (ADMIN, CLIENT, CONSULTANT) is functioning
+-Protected routes are secured with middleware
+
+✅ User management in Admin dashboard — complete
+-Admin can view and manage users at /admin
+-User roles and permissions working
+-All admin user management features are implemented
+
+❌ User management in Agency dashboard — not implemented yet
+-The agency dashboard doesn’t have user management features yet
+-We need clarity on what functionality should be available there:
+-Should clients be able to create/manage their own accounts?
+-Should there be a client portal for managing their team?
+-What specific user management actions should be available in the agency section?
+-Next step needed: Specification for user management features in the agency dashboard. Once we know what’s needed, we can implement it.
+
+Everything else is working and deployed. Ready to build the agency user management once we have the requirements.
+

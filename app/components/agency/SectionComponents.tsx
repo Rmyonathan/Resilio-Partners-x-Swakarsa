@@ -123,9 +123,10 @@ export const TeamSection = ({ data }: { data: any[] }) => (
             transition={{ delay: idx * 0.2 }}
             className="rounded-2xl p-6 bg-slate-900/60 border border-slate-800 backdrop-blur-sm flex gap-6 items-center"
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-indigo-500/30 flex-shrink-0">
-              <img src={member.image} alt={member.name} className="w-full h-full object-cover" 
-              onError={(e: any) => e.target.src = "https://placehold.co/100x100/333/FFF?text=User"}/>
+            <div className="w-24 h-24 rounded-full border-2 border-indigo-500/30 flex-shrink-0 bg-indigo-500/20 flex items-center justify-center">
+              <span className="text-3xl font-bold text-indigo-400">
+                {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+              </span>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white">{member.name}</h3>

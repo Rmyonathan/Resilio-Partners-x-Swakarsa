@@ -174,18 +174,11 @@ const TeamMember = ({ member, index, isDark }: any) => (
       } backdrop-blur-sm transition-colors duration-300`}
   >
     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-      <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-2 border-indigo-500/30 shadow-lg shadow-indigo-500/10">
-        <div className={`w-full h-full flex items-center justify-center
-          ${isDark ? "bg-slate-800" : "bg-gray-100"}`}>
-          <img 
-            src={member.image} 
-            alt={member.name} 
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover"
-            onError={(e: any) => { e.target.src="https://placehold.co/100x100/333/FFF?text=User" }}
-          />
-        </div>
+      <div className={`w-24 h-24 rounded-full flex-shrink-0 border-2 border-indigo-500/30 shadow-lg shadow-indigo-500/10 flex items-center justify-center
+        ${isDark ? "bg-indigo-500/20" : "bg-indigo-100"}`}>
+        <span className={`text-3xl font-bold ${isDark ? "text-indigo-400" : "text-indigo-600"}`}>
+          {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
+        </span>
       </div>
       <div className="min-w-0">
         <h3 className={`text-xl font-bold truncate ${isDark ? "text-white" : "text-gray-900"}`}>
