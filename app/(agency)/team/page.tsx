@@ -27,8 +27,12 @@ export default function TeamPage() {
             {/* Jon Irwin */}
             <div className="bg-gradient-to-br from-slate-900 via-indigo-900/20 to-slate-900 border border-indigo-500/30 rounded-3xl p-8 md:p-12">
               <div className="mb-6">
-                <div className="w-32 h-32 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center mb-6">
-                  <span className="text-4xl font-bold text-indigo-400">JI</span>
+                <div className="w-32 h-32 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center mb-6 overflow-hidden">
+                  <img 
+                    src="/images/jon_irwin.jpg" 
+                    alt="Jon Irwin" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h2 className="text-3xl font-bold text-white mb-2">Jon Irwin</h2>
                 <p className="text-lg text-indigo-400 font-semibold mb-4">Founder & Principal Consultant</p>
@@ -58,8 +62,12 @@ export default function TeamPage() {
             {/* Jethro Lim */}
             <div className="bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 border border-purple-500/30 rounded-3xl p-8 md:p-12">
               <div className="mb-6">
-                <div className="w-32 h-32 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-6">
-                  <span className="text-4xl font-bold text-purple-400">JL</span>
+                <div className="w-32 h-32 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-6 overflow-hidden">
+                  <img 
+                    src="/images/jethro.jpeg" 
+                    alt="Jethro Lim" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h2 className="text-3xl font-bold text-white mb-2">Jethro Lim</h2>
                 <p className="text-lg text-purple-400 font-semibold mb-4">Chief Operating Officer</p>
