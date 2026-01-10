@@ -36,7 +36,7 @@ export default function AboutPage() {
                 That gap led to <Link href="/portfolio" className="text-indigo-400 hover:text-indigo-300 underline">OneClick Smart Resume</Link>—an AI-powered platform built during his own job search journey. What started as solving a personal problem became proof that complex, AI-driven platforms could be built quickly and effectively.
               </p>
               <p>
-                Today, Resilio Partners helps growing businesses build custom platforms, optimize workflows, and deliver complete marketing solutions. We combine Jon's proven project management expertise with Jethro's 15+ years of technical leadership and a 20-person engineering team to deliver solutions that actually ship.
+                Today, Resilio Partners helps growing businesses build custom platforms, optimize workflows, and deliver complete marketing solutions. We combine Jon's proven project management expertise with Jethro's 2+ years of technical leadership and a 20-person engineering team to deliver solutions that actually ship.
               </p>
             </div>
           </div>
@@ -59,7 +59,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Why Trust Us</h3>
               <p className="text-slate-400 leading-relaxed">
-                Every project is personally scoped by Jon and delivered with quality guaranteed by Jethro. We combine 35+ combined years of experience with a proven track record of shipping.
+                Every project is personally scoped by Jon and delivered with quality guaranteed by Jethro. We combine 22+ combined years of experience with a proven track record of shipping.
               </p>
             </div>
 
@@ -90,7 +90,7 @@ export default function AboutPage() {
                   <div className="w-2 h-2 rounded-full bg-indigo-400 mt-2 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-bold text-white mb-1">Proven Delivery</h4>
-                    <p className="text-slate-400 text-sm">35+ years combined experience with a track record of shipping</p>
+                    <p className="text-slate-400 text-sm">22+ years combined experience with a track record of shipping</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

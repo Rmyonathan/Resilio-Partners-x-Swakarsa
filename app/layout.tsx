@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swakarsa Digital",
-  description: "Digital Agency & Freelancer Collective",
+  title: "Resilio Partners",
+  description: "Business Consulting & Digital Solutions - AI-Powered Business Solutions That Actually Ship",
 };
 
 export default function RootLayout({

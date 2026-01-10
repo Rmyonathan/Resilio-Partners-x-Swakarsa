@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation"; 
 
 export const metadata: Metadata = {
-  title: "The Lab - Team Builder | Swakarsa Platform",
+  title: "The Lab - Team Builder | Resilio Partners",
   description: "Draft your dream team and estimate project burn rate.",
 };
 

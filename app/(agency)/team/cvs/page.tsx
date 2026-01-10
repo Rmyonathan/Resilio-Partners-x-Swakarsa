@@ -1,11 +1,10 @@
-import { Footer } from "../../../components/agency/SectionComponents";
-import { FileText, Download, ArrowLeft, ExternalLink, Users, Code, Palette } from "lucide-react";
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "Team CVs | Resilio Partners",
-  description: "View CVs and qualifications of our team members.",
-};
+import { useState } from "react";
+import { Footer } from "../../../components/agency/SectionComponents";
+import { FileText, ArrowLeft, Users, Code, Palette } from "lucide-react";
+import Link from "next/link";
+import CVModal from "./CVModal";
 
 // Marketing Team CV data - ATS-compliant resumes
 const marketingTeam = [
@@ -52,7 +51,7 @@ const itTeam = [
     id: "jethro",
     name: "Jethro Elijah Lim",
     role: "Digital Marketing Technologist / Full Stack Developer",
-    experience: "5+ Years",
+    experience: "2+ Years",
     cvFile: "/cv/ATS_RESUMES/JETHRO_ELIJAH_LIM_ATS.txt"
   },
   {
@@ -79,8 +78,26 @@ const itTeam = [
 ];
 
 export default function TeamCVsPage() {
+  const [selectedCV, setSelectedCV] = useState<{ name: string; role: string; cvFile: string } | null>(null);
+
+  const handleViewCV = (member: { name: string; role: string; cvFile: string }) => {
+    setSelectedCV(member);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCV(null);
+  };
+
   return (
     <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
+      <CVModal
+        isOpen={!!selectedCV}
+        onClose={handleCloseModal}
+        memberName={selectedCV?.name || ""}
+        memberRole={selectedCV?.role || ""}
+        cvFile={selectedCV?.cvFile || ""}
+      />
+      
       <section className="pt-32 pb-24 container mx-auto px-6">
         <Link 
           href="/team" 
@@ -129,18 +146,15 @@ export default function TeamCVsPage() {
                 <p className="text-sm text-slate-400 mb-6">{member.role}</p>
 
                 <div className="pt-6 border-t border-slate-800">
-                  <a
-                    href={member.cvFile}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between w-full p-3 rounded-xl bg-blue-600/10 text-blue-300 hover:bg-blue-600 hover:text-white transition-all group/btn"
+                  <button
+                    onClick={() => handleViewCV(member)}
+                    className="flex items-center justify-center w-full p-3 rounded-xl bg-blue-600/10 text-blue-300 hover:bg-blue-600 hover:text-white transition-all group/btn"
                   >
                     <span className="flex items-center gap-2 font-medium text-sm">
                       <FileText size={16} />
                       View Resume
                     </span>
-                    <ExternalLink size={14} className="opacity-50 group-hover/btn:opacity-100 transition-opacity" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
@@ -174,18 +188,15 @@ export default function TeamCVsPage() {
                 <p className="text-sm text-slate-400 mb-6">{member.role}</p>
 
                 <div className="pt-6 border-t border-slate-800">
-                  <a
-                    href={member.cvFile}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between w-full p-3 rounded-xl bg-indigo-600/10 text-indigo-300 hover:bg-indigo-600 hover:text-white transition-all group/btn"
+                  <button
+                    onClick={() => handleViewCV(member)}
+                    className="flex items-center justify-center w-full p-3 rounded-xl bg-indigo-600/10 text-indigo-300 hover:bg-indigo-600 hover:text-white transition-all group/btn"
                   >
                     <span className="flex items-center gap-2 font-medium text-sm">
                       <FileText size={16} />
                       View Resume
                     </span>
-                    <ExternalLink size={14} className="opacity-50 group-hover/btn:opacity-100 transition-opacity" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}

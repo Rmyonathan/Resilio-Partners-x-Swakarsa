@@ -4,7 +4,7 @@ import { ArrowLeft, Shield } from "lucide-react";
 import LoginForm from "../components/platform/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Platform Login | Swakarsa Digital",
+  title: "Platform Login | Resilio Partners",
   description: "Access The Lab or The Guild.",
 };
 

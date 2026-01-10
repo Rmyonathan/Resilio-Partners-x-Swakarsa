@@ -65,7 +65,7 @@ export default async function AgencyHome() {
                 Modern websites, SEO optimization, and complete digital marketing strategies that drive traffic and conversions.
               </p>
               <div className="mt-6 pt-6 border-t border-slate-800">
-                <span className="text-sm font-semibold text-purple-400">Swakarsa</span>
+                <span className="text-sm font-semibold text-purple-400">Resilio Partners</span>
               </div>
             </div>
 

@@ -67,13 +67,13 @@ export default function TeamPage() {
               
               <div className="space-y-4 text-slate-300 leading-relaxed mb-6">
                 <p>
-                  With <strong className="text-white">15+ years managing development teams</strong>, Jethro oversees all technical delivery and ensures quality across every project.
+                  With <strong className="text-white">2+ years managing development teams</strong>, Jethro oversees all technical delivery and ensures quality across every project.
                 </p>
                 <p>
                   His expertise spans full-stack development, AI/ML integration, and workflow automation. Jethro manages our 20-person engineering team and guarantees quality delivery.
                 </p>
                 <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">15+ Years Leadership</span>
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">2+ Years Leadership</span>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">Technical Delivery</span>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">Team Manager</span>
                 </div>
