@@ -59,10 +59,10 @@ export default function DraftingBoard({ initialHeroes }: { initialHeroes: any[] 
 
   return (
     <DndContext id={dndContextId} onDragEnd={handleDragEnd}>
-      <div className="h-[calc(100vh-64px)] md:h-screen flex flex-col md:flex-row bg-slate-950 text-slate-200 overflow-hidden">
+      <div className="h-[calc(100vh-64px)] md:h-screen flex flex-col md:flex-row bg-gradient-to-br from-slate-900 via-indigo-900/20 to-slate-900 text-slate-200 overflow-hidden">
         
         {/* LEFT PANEL: THE BENCH */}
-        <aside className="w-full md:w-80 lg:w-96 bg-slate-900 border-r border-slate-800 flex flex-col h-1/2 md:h-full transition-all">
+        <aside className="w-full md:w-80 lg:w-96 bg-slate-900/80 backdrop-blur-sm border-r border-indigo-500/20 flex flex-col h-1/2 md:h-full transition-all">
           <div className="p-4 border-b border-slate-800 bg-slate-900 sticky top-0 z-10">
             <h3 className="font-bold text-white mb-2 flex justify-between">
               The Bench 
@@ -89,7 +89,7 @@ export default function DraftingBoard({ initialHeroes }: { initialHeroes: any[] 
         </aside>
 
         {/* RIGHT PANEL: THE LAB */}
-        <main className="flex-1 p-4 md:p-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950 h-1/2 md:h-full overflow-hidden flex flex-col relative">
+        <main className="flex-1 p-4 md:p-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-900/90 to-indigo-950/40 h-1/2 md:h-full overflow-hidden flex flex-col relative">
            
            {/* HEADER AREA DENGAN TOMBOL ACTION */}
            <div className="flex justify-between items-center mb-4">

@@ -508,6 +508,147 @@ export async function getCuratedJobs() {
   }
 }
 
+// ==========================================
+// BLOG POSTS - RSS FEEDS
+// ==========================================
+
+// Fetch blogs from Wix RSS feed (Company Blog)
+async function fetchWixBlogs() {
+  try {
+    const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://www.resilio-partners.com/blog-feed.xml";
+    const response = await fetch(rssUrl, { next: { revalidate: 3600 } });
+    
+    if (!response.ok) return [];
+    
+    const data = await response.json();
+    if (!data.items || data.items.length === 0) return [];
+    
+    return data.items.map((item: any) => {
+      const imageMatch = item.enclosure?.link || 
+        item.description?.match(/<img[^>]+src="([^"]+)"/)?.[1] ||
+        "/assets/story-placeholder.jpg";
+      
+      const cleanDescription = item.description
+        ? item.description.replace(/<[^>]+>/g, "").substring(0, 200) + "..."
+        : "";
+      
+      return {
+        id: `wix-${item.guid || item.link}`,
+        slug: item.link,
+        title: item.title,
+        excerpt: cleanDescription,
+        cover_image_url: imageMatch,
+        published_at: item.pubDate,
+        source: "Resilio Blog",
+        external_link: item.link,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching Wix blogs:", error);
+    return [];
+  }
+}
+
+// Fetch blogs from Jon Irwin's Medium (Personal Blog)
+async function fetchMediumBlogs() {
+  try {
+    const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@jonathanirwin";
+    const response = await fetch(rssUrl, { next: { revalidate: 3600 } });
+
+    if (!response.ok) return [];
+
+    const data = await response.json();
+    if (!data.items || data.items.length === 0) return [];
+
+    return data.items.map((item: any) => {
+      const imageMatch = item.thumbnail || 
+        item.description?.match(/<img[^>]+src="([^"]+)"/)?.[1] ||
+        "/assets/story-placeholder.jpg";
+
+      const cleanDescription = item.description
+        ? item.description.replace(/<[^>]+>/g, "").substring(0, 200) + "..."
+        : "";
+
+      return {
+        id: `medium-${item.guid}`,
+        slug: item.link,
+        title: item.title,
+        excerpt: cleanDescription,
+        cover_image_url: imageMatch,
+        published_at: item.pubDate,
+        source: "Jon's Medium",
+        external_link: item.link,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching Medium blogs:", error);
+    return [];
+  }
+}
+
+// Fallback blog posts (custom blogs can be added here or via database)
+const fallbackBlogPosts = [
+  {
+    id: "1",
+    slug: "digital-transformation-strategic-guide",
+    title: "Digital Transformation: A Strategic Guide for Modern Businesses",
+    excerpt: "Discover how digital transformation can revolutionize your business operations, improve customer experience, and drive sustainable growth in today's competitive market.",
+    cover_image_url: "/assets/story-placeholder.jpg",
+    published_at: new Date("2024-01-15").toISOString(),
+    source: "Resilio",
+  },
+  {
+    id: "2",
+    slug: "nextjs-15-whats-new",
+    title: "Next.js 15: What's New and Why It Matters for Your Projects",
+    excerpt: "Explore the latest features in Next.js 15, including server components, improved performance, and new routing capabilities that can accelerate your development workflow.",
+    cover_image_url: "/assets/story-placeholder.jpg",
+    published_at: new Date("2024-01-10").toISOString(),
+    source: "Resilio",
+  },
+  {
+    id: "3",
+    slug: "marketing-strategies-2024",
+    title: "Marketing Strategies That Actually Convert in 2024",
+    excerpt: "Learn proven marketing strategies and tactics that deliver real results, from SEO optimization to social media campaigns that engage and convert your target audience.",
+    cover_image_url: "/assets/story-placeholder.jpg",
+    published_at: new Date("2024-01-05").toISOString(),
+    source: "Resilio",
+  },
+];
+
+export async function getBlogPosts() {
+  try {
+    const [wixPosts, mediumPosts] = await Promise.all([
+      fetchWixBlogs(),
+      fetchMediumBlogs(),
+    ]);
+
+    // Combine all posts
+    let allPosts: any[] = [];
+    
+    if (wixPosts && wixPosts.length > 0) allPosts.push(...wixPosts);
+    if (mediumPosts && mediumPosts.length > 0) allPosts.push(...mediumPosts);
+    
+    // Use fallback only if absolutely nothing else loaded
+    if (allPosts.length === 0) {
+      allPosts.push(...fallbackBlogPosts);
+    }
+
+    // Sort by published_at (newest first)
+    allPosts.sort((a, b) => {
+      const dateA = new Date(a.published_at || 0).getTime();
+      const dateB = new Date(b.published_at || 0).getTime();
+      return dateB - dateA;
+    });
+
+    return allPosts.slice(0, 6); // Limit to 6 posts for landing page
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return fallbackBlogPosts;
+  }
+}
+
 export async function createCuratedJob(formData: FormData) {
   const session = await auth();
   const user = session?.user as any;

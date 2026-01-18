@@ -23,7 +23,7 @@ export default function Sidebar({ user }: { user: any }) {
     'text-indigo-400';
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 hidden md:flex flex-col h-screen sticky top-0">
+    <aside className="w-64 bg-slate-900/90 backdrop-blur-sm border-r border-indigo-500/20 hidden md:flex flex-col h-screen sticky top-0">
       {/* === HEADER: LOGO & IDENTITY === */}
       <div className="p-6 border-b border-slate-800">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl text-white hover:opacity-80 transition-opacity">

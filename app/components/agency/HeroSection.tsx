@@ -50,12 +50,14 @@ const AnimatedGrid = memo(({ isDark = true }: AnimatedGridProps) => (
     <motion.div
       animate={{ x: [-100, 100, -100], y: [-50, 50, -50], opacity: [0.3, 0.5, 0.3], scale: [1, 1.2, 1] }}
       transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-      className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/30 rounded-full blur-[100px]"
+      className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[100px]"
+      style={{ backgroundColor: 'rgba(0, 166, 81, 0.3)' }}
     />
     <motion.div
       animate={{ x: [100, -100, 100], y: [50, -50, 50], opacity: [0.2, 0.4, 0.2], scale: [1.2, 1, 1.2] }}
       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[120px]"
+      className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
+      style={{ backgroundColor: 'rgba(0, 84, 166, 0.2)' }}
     />
   </div>
 ));
@@ -66,19 +68,19 @@ export default function HeroSection() {
   const isDark = true;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden z-10 bg-black">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden z-10">
         <AnimatedGrid isDark={isDark} />
         
         {/* Floating Icons */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
              <FloatingElement delay={0} xRange={[-50, 50, -50]} yRange={[-20, 20, -20]} duration={12} className="top-[15%] left-[10%] opacity-20">
-                 <Sparkles size={64} className="text-indigo-400" />
+                 <Sparkles size={64} style={{ color: '#00A651' }} />
              </FloatingElement>
              <FloatingElement delay={2} xRange={[50, -50, 50]} yRange={[30, -30, 30]} duration={15} className="bottom-[20%] right-[10%] opacity-20">
-                 <Code size={80} className="text-cyan-400" />
+                 <Code size={80} style={{ color: '#0054A6' }} />
              </FloatingElement>
              <FloatingElement delay={1} xRange={[-30, 30, -30]} yRange={[50, -50, 50]} duration={18} className="top-[40%] right-[20%] opacity-10">
-                 <Globe size={120} className="text-purple-400" />
+                 <Globe size={120} style={{ color: '#FFD400' }} />
              </FloatingElement>
         </div>
 
@@ -89,10 +91,11 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-             <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold border backdrop-blur-sm flex items-center gap-2 bg-indigo-500/10 border-indigo-500/30 text-indigo-300">
+             <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold border backdrop-blur-sm flex items-center gap-2 border-[#0054A6]/30 text-[#0054A6]"
+                  style={{ backgroundColor: 'rgba(0, 84, 166, 0.1)' }}>
                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#0054A6' }}></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: '#0054A6' }}></span>
                  </span>
                  Business Consulting & Digital Solutions
              </div>
@@ -105,7 +108,8 @@ export default function HeroSection() {
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 text-white leading-tight"
           >
             AI-Powered Business Solutions <br className="hidden sm:block" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
+            <span className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: 'linear-gradient(to right, #00A651, #0054A6)' }}>
               That Actually Ship
             </span>
           </motion.h1>
@@ -131,13 +135,13 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
             >
-              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 bg-white text-black hover:bg-indigo-50 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] w-full sm:w-auto text-lg flex items-center justify-center gap-2">
+              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 bg-white text-black hover:bg-[#00A651]/10 hover:shadow-[0_0_20px_rgba(0,166,81,0.5)] w-full sm:w-auto text-lg flex items-center justify-center gap-2">
                 <Calendar size={20} />
                 <span className="relative z-10">Book a Discovery Call</span>
               </button>
             </a>
             <Link href="/portfolio" className="w-full sm:w-auto">
-              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 border border-slate-600 text-white hover:border-indigo-500 hover:text-indigo-400 w-full sm:w-auto text-lg">
+              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 border border-slate-600 text-white hover:border-[#0054A6] hover:text-[#0054A6] w-full sm:w-auto text-lg">
                 <span className="relative z-10">View Our Work</span>
               </button>
             </Link>

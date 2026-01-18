@@ -8,31 +8,31 @@ export default async function GuildDashboard() {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8 min-h-screen">
       {/* Header */}
-      <div className="flex items-center gap-4 border-b border-slate-200 pb-6">
-        <div className="p-3 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-500/30">
+      <div className="flex items-center gap-4 border-b border-indigo-500/30 pb-6">
+        <div className="p-3 bg-gradient-to-br from-indigo-500 to-cyan-500 rounded-xl text-white shadow-lg shadow-indigo-500/30">
           <Sword size={32} />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">The Guild Hall</h1>
-          <p className="text-slate-500">Active Quests & Assignments.</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">The Guild Hall</h1>
+          <p className="text-slate-300">Active Quests & Assignments.</p>
         </div>
       </div>
 
       {/* Quest Board (Project List) */}
       <div className="grid grid-cols-1 gap-6">
         {projects.length === 0 ? (
-          <div className="text-center py-20 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
-             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
-               <Shield size={32} />
+          <div className="text-center py-20 bg-slate-900/40 backdrop-blur-sm rounded-2xl border-2 border-dashed border-indigo-500/30">
+             <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/20">
+               <Shield size={32} className="text-indigo-400" />
              </div>
-             <h3 className="text-lg font-bold text-slate-600">No Active Quests</h3>
-             <p className="text-slate-400">You haven't been assigned to any party yet.</p>
+             <h3 className="text-lg font-bold text-white">No Active Quests</h3>
+             <p className="text-slate-300">You haven't been assigned to any party yet.</p>
           </div>
         ) : (
           projects.map((project) => (
-            <div key={project.id} className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl transition-all group">
+            <div key={project.id} className="bg-slate-900/60 backdrop-blur-sm rounded-2xl border border-indigo-500/20 overflow-hidden hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/40 transition-all group">
               {/* Card Header */}
-              <div className="bg-slate-900 p-6 flex justify-between items-start text-white">
+              <div className="bg-gradient-to-r from-indigo-900/50 to-slate-900/80 p-6 flex justify-between items-start text-white border-b border-indigo-500/20">
                 <div>
                    <div className="flex items-center gap-3 mb-2">
                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
@@ -45,7 +45,7 @@ export default async function GuildDashboard() {
                        <Calendar size={12}/> {new Date(project.createdAt).toLocaleDateString()}
                      </span>
                    </div>
-                   <h3 className="text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                   <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
                      {project.name}
                    </h3>
                 </div>
@@ -53,12 +53,12 @@ export default async function GuildDashboard() {
                   <div className="flex items-center gap-2 text-slate-400 text-sm mb-1 justify-end">
                     <User size={14} /> Client
                   </div>
-                  <p className="font-bold">{project.client.name || project.client.email}</p>
+                  <p className="font-bold text-indigo-300">{project.client.name || project.client.email}</p>
                 </div>
               </div>
 
               {/* Card Body */}
-              <div className="p-6">
+              <div className="p-6 bg-slate-900/30">
                  {/* Layout responsif: Flex Column di HP, Row di Desktop */}
                  <div className="flex items-start gap-6 flex-col sm:flex-row">
                     
@@ -69,12 +69,12 @@ export default async function GuildDashboard() {
                        </h4>
                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                           {project.members.map((member) => (
-                            <div key={member.id} className="flex items-center gap-3 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                               <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xs">
+                            <div key={member.id} className="flex items-center gap-3 p-2 bg-slate-800/50 rounded-lg border border-indigo-500/20 hover:border-indigo-500/40 transition-colors">
+                               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 text-white flex items-center justify-center font-bold text-xs shadow-lg shadow-indigo-500/30">
                                  {member.hero.name?.charAt(0)}
                                </div>
                                <div>
-                                 <p className="text-sm font-bold text-slate-700 leading-tight">{member.hero.name}</p>
+                                 <p className="text-sm font-bold text-white leading-tight">{member.hero.name}</p>
                                  <p className="text-[10px] text-slate-400 uppercase">Specialist</p>
                                </div>
                             </div>

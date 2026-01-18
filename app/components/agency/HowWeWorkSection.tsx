@@ -59,7 +59,7 @@ export default function HowWeWorkSection() {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-black via-slate-950 to-black">
+    <section className="py-24 relative">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
