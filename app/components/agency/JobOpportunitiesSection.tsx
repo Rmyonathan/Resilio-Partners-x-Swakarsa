@@ -32,6 +32,7 @@ export default async function JobOpportunitiesSection() {
     description: job.description || "Remote opportunity available. Click to view full details.",
     jobUrl: job.jobUrl || "#",
     isArise: false,
+    benefits: undefined as any, // RSS jobs don't have benefits
   }));
 
   // Combine: Arise first, then RSS jobs
@@ -99,10 +100,10 @@ export default async function JobOpportunitiesSection() {
                 </div>
 
                 {/* Benefits Preview - Only for Arise job */}
-                {job.isArise && job.benefits && (
+                {job.isArise && 'benefits' in job && job.benefits && (
                   <div className="mb-4">
                     <div className="grid grid-cols-2 gap-2 mb-3">
-                      {job.benefits.slice(0, 4).map((benefit: any, idx: number) => (
+                      {(job.benefits as any[]).slice(0, 4).map((benefit: any, idx: number) => (
                         <div key={idx} className="flex items-start gap-2">
                           <benefit.icon className={`w-3 h-3 ${colorScheme.icon} mt-0.5 flex-shrink-0`} />
                           <div>

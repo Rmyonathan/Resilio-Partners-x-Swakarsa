@@ -92,15 +92,15 @@ const Nucleus = memo(() => (
     <motion.circle
       cx={centerX}
       cy={centerY}
-      r="28"
+      r="32"
       fill="none"
-      stroke="rgba(255, 255, 255, 0.5)"
-      strokeWidth="2.5"
-      opacity={0.6}
+      stroke="rgba(255, 255, 255, 0.7)"
+      strokeWidth="3"
+      opacity={0.8}
       filter="url(#glow-nucleus)"
       animate={{
         scale: [1, 1.15, 1],
-        opacity: [0.5, 0.7, 0.5],
+        opacity: [0.7, 0.9, 0.7],
       }}
       transition={{
         duration: 3,
@@ -112,12 +112,12 @@ const Nucleus = memo(() => (
     <motion.circle
       cx={centerX}
       cy={centerY}
-      r="18"
+      r="20"
       fill="url(#nucleusGradient)"
       filter="url(#glow-nucleus)"
       animate={{
         scale: [1, 1.08, 1],
-        opacity: [0.95, 1, 0.95],
+        opacity: [0.98, 1, 0.98],
       }}
       transition={{
         duration: 2.5,
@@ -129,7 +129,7 @@ const Nucleus = memo(() => (
     <circle
       cx={centerX}
       cy={centerY}
-      r="10"
+      r="12"
       fill="rgba(255, 255, 255, 1)"
       filter="url(#glow-nucleus)"
     />
@@ -172,7 +172,7 @@ const Electron = memo(({ orbitIndex, electronIndex, orbit }: ElectronProps) => {
       />
       
       {/* Main Electron */}
-      <circle r="8" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="1">
+      <circle r="10" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="1">
         <animateMotion
           dur={`${orbit.duration}s`}
           repeatCount="indefinite"
@@ -182,14 +182,14 @@ const Electron = memo(({ orbitIndex, electronIndex, orbit }: ElectronProps) => {
         </animateMotion>
         <animate
           attributeName="r"
-          values="7;9;7"
+          values="9;11;9"
           dur={`${2 + electronIndex * 0.2}s`}
           repeatCount="indefinite"
           begin={`${delay}s`}
         />
         <animate
           attributeName="opacity"
-          values="0.9;1;0.9"
+          values="0.95;1;0.95"
           dur={`${1.5 + electronIndex * 0.15}s`}
           repeatCount="indefinite"
           begin={`${delay}s`}
@@ -197,7 +197,7 @@ const Electron = memo(({ orbitIndex, electronIndex, orbit }: ElectronProps) => {
       </circle>
       
       {/* Trail Glow */}
-      <circle r="16" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="0.3">
+      <circle r="20" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="0.5">
         <animateMotion
           dur={`${orbit.duration}s`}
           repeatCount="indefinite"
@@ -207,7 +207,7 @@ const Electron = memo(({ orbitIndex, electronIndex, orbit }: ElectronProps) => {
         </animateMotion>
         <animate
           attributeName="opacity"
-          values="0.2;0.4;0.2"
+          values="0.3;0.6;0.3"
           dur={`${1.5 + electronIndex * 0.15}s`}
           repeatCount="indefinite"
           begin={`${delay}s`}
@@ -240,9 +240,9 @@ const OrbitPath = memo(({ orbit, index }: OrbitPathProps) => {
       ry={orbit.radiusY}
       fill="none"
       stroke={orbit.color}
-      strokeWidth="2"
-      strokeDasharray="8 12"
-      opacity="0.4"
+      strokeWidth="2.5"
+      strokeDasharray="10 8"
+      opacity="0.6"
       transform={`rotate(${orbit.rotation} ${centerX} ${centerY})`}
       filter={`url(#${getFilterId()})`}
       style={{
@@ -257,14 +257,16 @@ OrbitPath.displayName = "OrbitPath";
 // Main Component
 export default function AtomBackground() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
       <svg
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200vw] h-[200vh]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         viewBox="0 0 1000 1000"
         preserveAspectRatio="xMidYMid meet"
         style={{
-          minWidth: "1000px",
-          minHeight: "1000px",
+          width: "150vw",
+          height: "150vh",
+          minWidth: "1200px",
+          minHeight: "1200px",
           overflow: "visible",
         }}
       >
