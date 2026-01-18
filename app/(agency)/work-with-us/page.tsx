@@ -1,6 +1,7 @@
 import { Footer } from "../../components/agency/SectionComponents";
 import { Calendar, CheckCircle, DollarSign, Clock, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import AtomBackground from "@/app/components/agency/AtomBackground";
 
 export const metadata = {
   title: "Work With Us | Resilio Partners",
@@ -9,7 +10,10 @@ export const metadata = {
 
 export default function WorkWithUsPage() {
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
+    <main className="min-h-screen text-white selection:bg-[#0054A6]/30 relative overflow-hidden" style={{
+      background: 'radial-gradient(circle at center, rgba(255, 212, 0, 0.03) 0%, rgba(10, 16, 37, 0.6) 50%, rgba(0, 0, 0, 1) 100%)',
+    }}>
+      <AtomBackground />
       {/* Header */}
       <section className="pt-32 pb-12 container mx-auto px-6 text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">

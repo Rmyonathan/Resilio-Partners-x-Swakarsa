@@ -1,207 +1,172 @@
-"use client";
+import Link from "next/link";
+import { Mail, Phone, MapPin, Calendar, ExternalLink, Linkedin, Twitter, Github } from "lucide-react";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
-
-// --- UTILS ---
-// @ts-ignore
-const Card = ({ children, className = "" }) => (
-  <div className={`rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-sm ${className}`}>
-    {children}
-  </div>
-);
-
-// --- MODAL COMPONENT ---
-// @ts-ignore
-export const Modal = ({ isOpen, onClose, children, title }) => {
-  if (!isOpen) return null;
+export function Footer() {
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col bg-slate-900 border border-slate-700 rounded-3xl shadow-2xl"
-      >
-        <div className="flex items-center justify-between p-6 border-b border-slate-800 bg-slate-900/80">
-          <h3 className="text-xl font-bold text-white">{title}</h3>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white">✕</button>
-        </div>
-        <div className="p-6 overflow-y-auto">{children}</div>
-      </motion.div>
-    </div>
-  );
-};
-
-// --- PORTFOLIO SECTION ---
-export const PortfolioSection = ({ data }: { data: any[] }) => {
-  const [selected, setSelected] = useState<any>(null);
-
-  return (
-    <section id="portfolio" className="py-20 bg-black text-white">
-      <div className="container mx-auto px-4">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">Featured Work</h2>
-          <p className="text-slate-400">A selection of our recent projects.</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {data.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              onClick={() => setSelected(project)}
-              className="rounded-2xl overflow-hidden cursor-pointer group border border-slate-800 bg-slate-900/60 hover:border-slate-600 transition-all"
-            >
-              <div className="relative h-56 overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                  onError={(e: any) => e.target.src = "https://placehold.co/600x400/1e293b/FFF?text=Project"}
-                />
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 text-white border border-white/10">
-                  {project.category}
-                </div>
-              </div>
-              <div className="p-5">
-                <h3 className="font-bold text-xl text-white mb-1">{project.title}</h3>
-                <p className="text-sm text-slate-400 line-clamp-2 mb-4">{project.shortDescription}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.slice(0, 3).map((tag: string, i: number) => (
-                    <span key={i} className="px-2 py-1 rounded text-xs font-medium bg-slate-800 text-slate-300">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-      
-      {/* Modal Detail */}
-      <Modal isOpen={!!selected} onClose={() => setSelected(null)} title={selected?.title}>
-        {selected && (
-          <div className="space-y-6 text-slate-300">
-             <img src={selected.image} className="w-full h-64 object-cover rounded-xl" />
-             <p className="text-lg">{selected.description}</p>
-             <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-slate-800/50 rounded-xl">
-                   <h4 className="font-bold text-white mb-2">Challenges</h4>
-                   <ul className="list-disc list-inside text-sm space-y-1">
-                      {selected.challenges.map((c:string, i:number) => <li key={i}>{c}</li>)}
-                   </ul>
-                </div>
-                <div className="p-4 bg-slate-800/50 rounded-xl">
-                   <h4 className="font-bold text-white mb-2">Solutions</h4>
-                   <ul className="list-disc list-inside text-sm space-y-1">
-                      {selected.solutions.map((c:string, i:number) => <li key={i}>{c}</li>)}
-                   </ul>
-                </div>
-             </div>
+    <footer className="relative py-16 border-t border-white/10">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
+          {/* Company Info */}
+          <div>
+            <h3 className="text-xl font-bold text-white mb-4">Resilio Partners</h3>
+            <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+              Strategic consulting firm partnering with growing businesses to build custom platforms, optimize workflows, and deliver complete marketing solutions.
+            </p>
+            <div className="flex gap-4">
+              <a 
+                href="https://linkedin.com/company/resilio-partners" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#0054A6]/30 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-[#0054A6]/50"
+              >
+                <Linkedin className="w-5 h-5 text-slate-400 hover:text-[#0054A6]" />
+              </a>
+              <a 
+                href="https://twitter.com/resiliopartners" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#0054A6]/30 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-[#0054A6]/50"
+              >
+                <Twitter className="w-5 h-5 text-slate-400 hover:text-[#0054A6]" />
+              </a>
+              <a 
+                href="https://github.com/resilio-partners" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#0054A6]/30 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-[#0054A6]/50"
+              >
+                <Github className="w-5 h-5 text-slate-400 hover:text-[#0054A6]" />
+              </a>
+            </div>
           </div>
-        )}
-      </Modal>
-    </section>
-  );
-};
 
-// --- TEAM SECTION ---
-export const TeamSection = ({ data }: { data: any[] }) => (
-  <section id="team" className="py-20 bg-slate-900/30">
-    <div className="container mx-auto px-4">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold text-white mb-4">Meet Our Leadership</h2>
-        <p className="text-slate-400">The leaders behind Resilio Partners.</p>
-      </div>
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {data.map((member, idx) => (
-          <motion.div
-            key={member.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.2 }}
-            className="rounded-2xl p-6 bg-slate-900/60 border border-slate-800 backdrop-blur-sm flex gap-6 items-center"
-          >
-            <div className="w-24 h-24 rounded-full border-2 border-indigo-500/30 flex-shrink-0 bg-indigo-500/20 flex items-center justify-center">
-              <span className="text-3xl font-bold text-indigo-400">
-                {member.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-              </span>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-white">{member.name}</h3>
-              <p className="text-indigo-400 font-medium">{member.role}</p>
-              <p className="text-sm text-slate-400 mt-2">{member.description}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/portfolio" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link href="/team" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Our Team
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/jobs" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-// --- SKILLS/SERVICES SECTION ---
-export const ServicesSection = ({ data }: { data: any[] }) => {
-  const [selected, setSelected] = useState<any>(null);
+          {/* Services */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/portfolio" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Custom Platform Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/portfolio" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Workflow Optimization
+                </Link>
+              </li>
+              <li>
+                <Link href="/portfolio" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Marketing Solutions
+                </Link>
+              </li>
+              <li>
+                <Link href="/work-with-us" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Discovery Sprint
+                </Link>
+              </li>
+              <li>
+                <Link href="/work-with-us" className="text-slate-400 hover:text-[#FFD400] text-sm transition-colors">
+                  Project Management
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-  return (
-    <section id="services" className="py-20 bg-black">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-white text-center mb-16">Core Capabilities</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.map((skill, idx) => (
-             <motion.div
-                key={skill.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                onClick={() => setSelected(skill)}
-                className="rounded-2xl overflow-hidden cursor-pointer group bg-slate-900/60 border border-slate-800 hover:border-indigo-500/50 transition-all"
-             >
-                <div className="h-48 overflow-hidden relative">
-                   <img src={skill.image} alt={skill.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform" 
-                   onError={(e: any) => e.target.src = "https://placehold.co/600x400/1e293b/FFF?text=Service"}/>
-                   <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold bg-slate-900/80 text-white border border-slate-700 backdrop-blur-md">
-                      {skill.category}
-                   </div>
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Get In Touch</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-[#0054A6] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-slate-400 text-sm">Email</p>
+                  <a href="mailto:contact@resilio-partners.com" className="text-white hover:text-[#FFD400] text-sm transition-colors">
+                    contact@resilio-partners.com
+                  </a>
                 </div>
-                <div className="p-6">
-                   <h3 className="font-bold text-xl text-white mb-2">{skill.title}</h3>
-                   <p className="text-sm text-slate-400 line-clamp-2">{skill.shortDescription}</p>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-[#0054A6] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-slate-400 text-sm">Phone</p>
+                  <a href="tel:+1234567890" className="text-white hover:text-[#FFD400] text-sm transition-colors">
+                    +1 (234) 567-890
+                  </a>
                 </div>
-             </motion.div>
-          ))}
+              </li>
+              <li className="flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-[#0054A6] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-slate-400 text-sm">Book a Call</p>
+                  <a 
+                    href="https://calendly.com/resilio-partners/discovery" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-[#FFD400] text-sm transition-colors flex items-center gap-1"
+                  >
+                    Schedule Discovery Call
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Resilio Partners. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <Link href="/work-with-us" className="text-slate-500 hover:text-[#FFD400] text-sm transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/work-with-us" className="text-slate-500 hover:text-[#FFD400] text-sm transition-colors">
+                Terms of Service
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <Modal isOpen={!!selected} onClose={() => setSelected(null)} title={selected?.title}>
-          {selected && (
-             <div className="space-y-4 text-slate-300">
-                <img src={selected.image} className="w-full h-64 object-cover rounded-xl" />
-                <p>{selected.description}</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                   {selected.techStack.map((tech: string, i:number) => (
-                      <span key={i} className="px-2 py-1 bg-indigo-500/10 text-indigo-300 rounded text-xs">{tech}</span>
-                   ))}
-                </div>
-             </div>
-          )}
-      </Modal>
-    </section>
+    </footer>
   );
-};
-
-// --- FOOTER ---
-export const Footer = () => (
-  <footer className="pt-24 pb-12 bg-slate-900 border-t border-slate-800 text-white">
-    <div className="container mx-auto px-4 text-center">
-      <h2 className="text-4xl font-extrabold mb-6">Ready to Level Up?</h2>
-      <p className="text-xl text-slate-400 mb-10">Consult your website & marketing needs with us.</p>
-      <div className="flex justify-center gap-4 mb-12">
-        <a href="/contact" className="px-8 py-4 bg-indigo-600 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition">Book Consultation</a>
-      </div>
-      <div className="h-px w-full bg-slate-800 my-12"></div>
-      <p className="text-slate-500">© 2025 Resilio Partners. All Rights Reserved.</p>
-    </div>
-  </footer>
-);
+}

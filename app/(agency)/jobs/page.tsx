@@ -1,8 +1,10 @@
 import { Footer } from "../../components/agency/SectionComponents";
 import AriseJobForm from "../../components/agency/AriseJobForm";
 import CuratedJobForm from "../../components/agency/CuratedJobForm";
+import ScrapedJobsSection from "../../components/agency/ScrapedJobsSection";
 import { getCuratedJobs } from "../../lib/actions";
 import { Check, Home, DollarSign, Users, Briefcase, Clock, ExternalLink, MapPin, Building2 } from "lucide-react";
+import AtomBackground from "@/app/components/agency/AtomBackground";
 
 export const metadata = {
   title: "Work From Home Jobs | Resilio Partners",
@@ -15,15 +17,21 @@ export default async function JobsPage() {
   // Fetch curated jobs (only active ones)
   const curatedJobs = await getCuratedJobs();
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
+    <main className="min-h-screen text-slate-100 selection:bg-[#0054A6]/30 relative overflow-hidden" style={{
+      background: `
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 166, 81, 0.2), transparent),
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 84, 166, 0.18), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 212, 0, 0.15), transparent),
+        linear-gradient(180deg, #1e293b 0%, #0f172a 100%)
+      `
+    }}>
+      <AtomBackground />
       {/* Section 1: Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-black to-black pointer-events-none" />
-        
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight text-slate-100">
             Work From Home with <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A651] to-[#0054A6]">
               Top Brands
             </span>
           </h1>
@@ -311,6 +319,9 @@ export default async function JobsPage() {
           </div>
         </section>
       )}
+
+      {/* Section 5: RSS Feed Jobs (External Opportunities) */}
+      <ScrapedJobsSection />
 
       <Footer />
     </main>

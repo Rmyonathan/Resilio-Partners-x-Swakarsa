@@ -19,15 +19,8 @@ export default async function BlogSection() {
   }
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Brand color gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#001428] via-[#000A14] to-[#001428]">
-        {/* Subtle brand color overlays */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#0054A6]/10 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#00A651]/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFD400]/5 to-transparent"></div>
-      </div>
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+    <section className="py-24 relative">
+      <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
             Latest Insights

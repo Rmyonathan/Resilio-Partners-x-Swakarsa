@@ -649,6 +649,26 @@ export async function getBlogPosts() {
   }
 }
 
+// ==========================================
+// RSS FEED JOBS (We Work Remotely)
+// ==========================================
+
+import { fetchRSSJobs } from './scraper/rss';
+
+export async function fetchSimplyHiredJobs(
+  searchQuery: string = 'developer',
+  location: string = 'remote',
+  maxJobs: number = 6
+) {
+  try {
+    const jobs = await fetchRSSJobs(maxJobs);
+    return jobs;
+  } catch (error) {
+    console.error('Error fetching RSS jobs:', error);
+    return [];
+  }
+}
+
 export async function createCuratedJob(formData: FormData) {
   const session = await auth();
   const user = session?.user as any;

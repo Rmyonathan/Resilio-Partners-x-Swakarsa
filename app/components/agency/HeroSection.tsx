@@ -1,41 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, ChevronDown, Sparkles, Code, Globe } from "lucide-react";
+import { Calendar, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { memo, ReactNode } from "react";
-
-interface FloatingElementProps {
-  children: ReactNode;
-  delay?: number;
-  xRange?: number[];
-  yRange?: number[];
-  duration?: number;
-  className?: string;
-}
+import { memo } from "react";
 
 interface AnimatedGridProps {
   isDark?: boolean;
 }
-
-const FloatingElement = memo(({ 
-  children, 
-  delay = 0, 
-  xRange = [0, 20, 0], 
-  yRange = [0, -20, 0], 
-  duration = 5, 
-  className = "" 
-}: FloatingElementProps) => (
-  <motion.div
-    animate={{ x: xRange, y: yRange, rotate: [0, 5, -5, 0] }}
-    transition={{ duration: duration, repeat: Infinity, ease: "easeInOut", delay: delay }}
-    className={`absolute z-0 ${className}`}
-  >
-    {children}
-  </motion.div>
-));
-
-FloatingElement.displayName = 'FloatingElement';
 
 const AnimatedGrid = memo(({ isDark = true }: AnimatedGridProps) => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -68,21 +40,10 @@ export default function HeroSection() {
   const isDark = true;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden z-10">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden z-10" style={{
+      background: 'radial-gradient(ellipse at center, rgba(255, 212, 0, 0.05) 0%, transparent 70%)'
+    }}>
         <AnimatedGrid isDark={isDark} />
-        
-        {/* Floating Icons */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-             <FloatingElement delay={0} xRange={[-50, 50, -50]} yRange={[-20, 20, -20]} duration={12} className="top-[15%] left-[10%] opacity-20">
-                 <Sparkles size={64} style={{ color: '#00A651' }} />
-             </FloatingElement>
-             <FloatingElement delay={2} xRange={[50, -50, 50]} yRange={[30, -30, 30]} duration={15} className="bottom-[20%] right-[10%] opacity-20">
-                 <Code size={80} style={{ color: '#0054A6' }} />
-             </FloatingElement>
-             <FloatingElement delay={1} xRange={[-30, 30, -30]} yRange={[50, -50, 50]} duration={18} className="top-[40%] right-[20%] opacity-10">
-                 <Globe size={120} style={{ color: '#FFD400' }} />
-             </FloatingElement>
-        </div>
 
         <div className="container relative z-10 px-4 sm:px-6 text-center text-white max-w-5xl">
           <motion.div

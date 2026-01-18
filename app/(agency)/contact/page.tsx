@@ -55,13 +55,18 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden relative selection:bg-indigo-500/30">
+    <main className="min-h-screen text-slate-100 overflow-x-hidden relative selection:bg-indigo-500/30" style={{
+      background: `
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 166, 81, 0.2), transparent),
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 84, 166, 0.18), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 212, 0, 0.15), transparent),
+        linear-gradient(180deg, #1e293b 0%, #0f172a 100%)
+      `
+    }}>
       <BackgroundEffects />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-black to-black pointer-events-none" />
-        
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -72,9 +77,9 @@ export default function ContactPage() {
               <MessageSquare size={16} />
               <span className="text-sm font-medium">Get in Touch</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-extrabold mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-6xl font-extrabold mb-6 tracking-tight text-slate-100">
               Let's Build Something <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00A651] to-[#0054A6]">
                 Extraordinary
               </span>
             </h1>

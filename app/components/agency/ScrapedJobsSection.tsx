@@ -1,113 +1,128 @@
-import { getCuratedJobs } from "@/app/lib/actions";
-import { Building2, DollarSign, Briefcase, Home, ExternalLink } from "lucide-react";
+import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Calendar } from "lucide-react";
 import Link from "next/link";
+import { fetchSimplyHiredJobs } from "@/app/lib/actions";
 
 export default async function ScrapedJobsSection() {
-  const curatedJobs = await getCuratedJobs();
+  // Fetch scraped jobs
+  const scrapedJobs = await fetchSimplyHiredJobs('developer', 'remote', 6);
 
-  if (curatedJobs.length === 0) {
-    return null;
+  // If no jobs found, show fallback content
+  if (scrapedJobs.length === 0) {
+    return (
+      <section className="py-24 relative">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-white">
+              External Career Opportunities
+            </h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Check back soon for remote developer opportunities
+            </p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-6 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-white">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
             External Career Opportunities
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            Explore remote work opportunities curated by our team
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            Discover remote developer positions from top companies
           </p>
         </div>
 
-        <div className="space-y-12">
-          {curatedJobs.slice(0, 3).map((job) => (
-            <div key={job.id} className="bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-900 border border-[#00A651]/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-[#00A651]/10">
-              <div className="text-center mb-8">
-                <h3 className="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                  {job.jobTitle}
-                </h3>
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Building2 className="text-[#0054A6]" size={20} />
-                  <p className="text-xl text-[#0054A6] font-semibold">{job.companyName}</p>
-                </div>
-                {job.salaryRange && (
-                  <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-                    {job.salaryRange}
-                  </p>
-                )}
-              </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {scrapedJobs.map((job, index) => {
+            // Cycle through brand colors: Blue, Green, Yellow
+            const colors = [
+              { border: 'border-[#0054A6]/50', hoverBorder: 'hover:border-[#0054A6]', shadow: 'hover:shadow-[0_0_30px_rgba(0,84,166,0.3)]', badge: 'bg-[#0054A6]/80 border-[#0054A6]/50', text: 'text-[#0054A6]', icon: 'text-[#0054A6]' },
+              { border: 'border-[#00A651]/50', hoverBorder: 'hover:border-[#00A651]', shadow: 'hover:shadow-[0_0_30px_rgba(0,166,81,0.3)]', badge: 'bg-[#00A651]/80 border-[#00A651]/50', text: 'text-[#00A651]', icon: 'text-[#00A651]' },
+              { border: 'border-[#FFD400]/50', hoverBorder: 'hover:border-[#FFD400]', shadow: 'hover:shadow-[0_0_30px_rgba(255,212,0,0.3)]', badge: 'bg-[#FFD400]/80 border-[#FFD400]/50', text: 'text-[#FFD400]', icon: 'text-[#FFD400]' },
+            ];
+            const colorScheme = colors[index % 3];
 
-              {/* Description */}
-              <div className="bg-black/60 rounded-2xl p-6 border border-white/10 mb-8">
-                <h4 className="text-xl font-bold mb-4 text-white">About This Role</h4>
-                <p className="text-slate-300 leading-relaxed whitespace-pre-line line-clamp-4">
-                  {job.description}
-                </p>
-              </div>
-
-              {/* Benefits Grid */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-[#00A651]/20 flex items-center justify-center flex-shrink-0">
-                    <Home className="text-[#00A651]" size={24} />
+            return (
+              <div
+                key={`${job.title}-${job.company}-${index}`}
+                className={`group bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow}`}
+              >
+                {/* Job Title */}
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#FFD400] transition-colors line-clamp-2">
+                    {job.title}
+                  </h3>
+                  
+                  {/* Company & Location */}
+                  <div className="flex items-center gap-3 mb-2">
+                    <Building2 className={`w-4 h-4 ${colorScheme.icon}`} />
+                    <span className="text-sm text-slate-300 font-medium">
+                      {job.company || 'Company not specified'}
+                    </span>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-2 text-white">100% Remote Work</h4>
-                    <p className="text-slate-400 text-sm">Work from anywhere</p>
-                  </div>
-                </div>
-
-                {job.salaryRange && (
-                  <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                    <div className="w-12 h-12 rounded-xl bg-[#FFD400]/20 flex items-center justify-center flex-shrink-0">
-                      <DollarSign className="text-[#FFD400]" size={24} />
+                  
+                  {job.location && (
+                    <div className="flex items-center gap-3 mb-2">
+                      <MapPin className={`w-4 h-4 ${colorScheme.icon}`} />
+                      <span className="text-sm text-slate-400">{job.location}</span>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg mb-2 text-white">Competitive Pay</h4>
-                      <p className="text-slate-400 text-sm">{job.salaryRange}</p>
+                  )}
+                  
+                  {job.salary && (
+                    <div className="flex items-center gap-3 mb-3">
+                      <DollarSign className={`w-4 h-4 ${colorScheme.icon}`} />
+                      <span className={`text-sm font-semibold ${colorScheme.text}`}>
+                        {job.salary}
+                      </span>
                     </div>
+                  )}
+                </div>
+
+                {/* Description Preview */}
+                {job.description && (
+                  <div className="mb-4">
+                    <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed">
+                      {job.description.substring(0, 150)}...
+                    </p>
                   </div>
                 )}
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-[#0054A6]/20 flex items-center justify-center flex-shrink-0">
-                    <Briefcase className="text-[#0054A6]" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-2 text-white">Curated Opportunity</h4>
-                    <p className="text-slate-400 text-sm">Hand-picked by our team</p>
-                  </div>
+                {/* CTA Button */}
+                <div className="pt-4 border-t border-slate-800">
+                  {job.jobUrl ? (
+                    <a
+                      href={job.jobUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 ${colorScheme.text} hover:opacity-80 font-semibold text-sm transition-all`}
+                    >
+                      <span>View Job</span>
+                      <ExternalLink size={14} />
+                    </a>
+                  ) : (
+                    <span className="text-sm text-slate-500">Job details unavailable</span>
+                  )}
                 </div>
               </div>
-
-              {/* CTA Button */}
-              <div className="text-center">
-                <a
-                  href={job.applyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#00A651] hover:bg-[#00A651]/90 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-[#00A651]/30"
-                >
-                  Apply Now
-                  <ExternalLink size={18} />
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="mt-12 text-center">
+        {/* View More Link */}
+        <div className="text-center mt-12">
           <Link
             href="/jobs"
-            className="inline-block text-[#0054A6] hover:text-[#00A651] font-semibold transition-colors"
+            className="inline-flex items-center gap-3 group text-[#FFD400] hover:text-[#00A651] font-semibold text-lg transition-colors"
           >
-            View All Opportunities →
+            <span>View All Opportunities</span>
+            <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
     </section>
   );
 }
-
