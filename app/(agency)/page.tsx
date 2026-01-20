@@ -9,7 +9,7 @@ import JobOpportunitiesSection from "@/app/components/agency/JobOpportunitiesSec
 import BlogSection from "@/app/components/agency/BlogSection";
 import ContactCTA from "@/app/components/agency/ContactCTA";
 import { Footer } from "@/app/components/agency/SectionComponents";
-import AtomBackground from "@/app/components/agency/AtomBackground";
+import WarmWaves from "@/app/components/visuals/WarmWaves";
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
@@ -26,32 +26,49 @@ export default async function AgencyHome() {
   }
 
   return (
-    <main className="min-h-screen bg-white relative overflow-hidden">
-      {/* Resilio Atom Background */}
-      <AtomBackground />
-      {/* Hero Section */}
-      <HeroSection />
+    <main className="min-h-screen relative overflow-hidden bg-white">
+      {/* Hero Section - White */}
+      <div className="relative bg-white">
+        <HeroSection />
+      </div>
 
-      {/* About Preview */}
-      <AboutPreview />
+      {/* About Preview - White */}
+      <div className="relative bg-white">
+        <AboutPreview />
+      </div>
 
-      {/* Portfolio Preview */}
-      <PortfolioPreview />
+      {/* Portfolio Preview - Light Grey */}
+      <div className="relative bg-slate-50">
+        <PortfolioPreview />
+      </div>
 
-      {/* Team Preview */}
-      <TeamPreview />
+      {/* Team Preview - White */}
+      <div className="relative bg-white">
+        <TeamPreview />
+      </div>
 
-      {/* How We Work */}
-      <HowWeWorkSection />
+      {/* How We Work - Light Grey */}
+      <div className="relative bg-slate-50 overflow-hidden">
+        <WarmWaves />
+        <div className="relative z-10">
+          <HowWeWorkSection />
+        </div>
+      </div>
 
-      {/* Job Opportunities */}
-      <JobOpportunitiesSection />
+      {/* Job Opportunities - White */}
+      <div className="relative bg-white">
+        <JobOpportunitiesSection />
+      </div>
 
-      {/* Blog Preview */}
-      <BlogSection />
+      {/* Blog Preview - Light Grey */}
+      <div className="relative bg-slate-50 overflow-visible">
+        <BlogSection />
+      </div>
 
-      {/* Contact CTA */}
-      <ContactCTA />
+      {/* Contact CTA - White */}
+      <div className="relative bg-white">
+        <ContactCTA />
+      </div>
 
       <Footer />
     </main>

@@ -59,13 +59,13 @@ export default function HowWeWorkSection() {
   };
 
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative z-10">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-blue-700">
             How We Work
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             A proven process designed to deliver results and drive business growth
           </p>
         </div>
@@ -73,7 +73,6 @@ export default function HowWeWorkSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, idx) => {
             const IconComponent = step.icon;
-            const colors = colorClasses[step.color];
             return (
               <motion.div
                 key={step.title}
@@ -81,13 +80,13 @@ export default function HowWeWorkSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: step.delay }}
-                className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#0054A6]/50 transition-all duration-300 group shadow-sm"
+                className="bg-white border border-slate-200 hover:border-blue-500 rounded-2xl p-8 transition-all duration-300 group shadow-md hover:shadow-xl"
               >
-                <div className={`w-16 h-16 rounded-xl ${colors.bg} ${colors.hover} flex items-center justify-center mb-6 transition-colors`}>
-                  <IconComponent className={colors.icon} size={32} />
+                <div className="w-16 h-16 rounded-xl bg-blue-50 flex items-center justify-center mb-6 transition-colors">
+                  <IconComponent className="text-blue-600" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{step.title}</h3>
+                <p className="text-slate-600 leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>

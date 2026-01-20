@@ -118,7 +118,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       // Format as name (largest, boldest)
       if (isName) {
         return (
-          <div key={index} className="font-bold text-white text-2xl mb-2 mt-0">
+          <div key={index} className="font-bold text-slate-900 text-2xl mb-2 mt-0">
             {trimmedLine}
           </div>
         );
@@ -127,7 +127,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       // Format as role
       if (isRole) {
         return (
-          <div key={index} className="text-indigo-400 text-lg mb-6 font-medium">
+          <div key={index} className="text-blue-600 text-lg mb-6 font-medium">
             {trimmedLine}
           </div>
         );
@@ -136,7 +136,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       // Format as section header
       if (isSectionHeader) {
         return (
-          <div key={index} className="font-bold text-white text-xl mt-8 mb-4 pt-4 border-t border-slate-700 first:border-t-0 first:mt-0">
+          <div key={index} className="font-bold text-slate-900 text-xl mt-8 mb-4 pt-4 border-t-2 border-slate-200 first:border-t-0 first:mt-0">
             {trimmedLine}
           </div>
         );
@@ -145,8 +145,8 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       // Check if line starts with bullet or dash
       if (trimmedLine.startsWith('-') || trimmedLine.startsWith('•') || trimmedLine.match(/^\d+\./)) {
         return (
-          <div key={index} className="text-slate-300 leading-relaxed mb-3 ml-6 flex items-start gap-3">
-            <span className="text-indigo-400 mt-1.5 flex-shrink-0">•</span>
+          <div key={index} className="text-slate-700 leading-relaxed mb-3 ml-6 flex items-start gap-3">
+            <span className="text-blue-600 mt-1.5 flex-shrink-0">•</span>
             <span className="flex-1">{trimmedLine.replace(/^[-•]\s*/, '').replace(/^\d+\.\s*/, '')}</span>
           </div>
         );
@@ -155,7 +155,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       // Check if line is a date range or location (contains dates, locations, or years)
       if (trimmedLine.match(/\d{4}|Present|Remote|Indonesia|Jakarta/i)) {
         return (
-          <div key={index} className="text-slate-400 leading-relaxed mb-2 italic text-sm">
+          <div key={index} className="text-slate-500 leading-relaxed mb-2 italic text-sm">
             {trimmedLine}
           </div>
         );
@@ -163,7 +163,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
       
       // Format as regular text with better spacing
       return (
-        <div key={index} className="text-slate-300 leading-relaxed mb-2.5">
+        <div key={index} className="text-slate-700 leading-relaxed mb-2.5">
           {trimmedLine}
         </div>
       );
@@ -181,7 +181,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
         className="fixed inset-0 z-[100] flex items-center justify-center p-4"
         onClick={onClose}
       >
-        <div className="absolute inset-0 bg-black/90 backdrop-blur-md" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
         
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -189,20 +189,20 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
           exit={{ scale: 0.95, opacity: 0, y: 20 }}
           transition={{ type: "spring", damping: 25 }}
           className="relative z-10 w-full max-w-4xl rounded-2xl max-h-[90vh] overflow-hidden flex flex-col
-            bg-slate-900 border border-slate-700 shadow-2xl"
+            bg-white border-2 border-slate-200 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 z-20 flex items-center justify-between p-6 border-b border-slate-700 bg-slate-900/95 backdrop-blur-sm">
+          <div className="sticky top-0 z-20 flex items-center justify-between p-6 border-b-2 border-slate-200 bg-white/95 backdrop-blur-sm">
             <div>
-              <h3 className="text-xl font-bold text-white">{memberName}</h3>
-              <p className="text-sm text-slate-400 mt-1">{memberRole}</p>
+              <h3 className="text-xl font-bold text-slate-900">{memberName}</h3>
+              <p className="text-sm text-slate-600 mt-1">{memberRole}</p>
             </div>
             <div className="flex items-center gap-3">
               {cvContent && (
                 <button
                   onClick={handleDownload}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 border border-indigo-500/30 transition-all text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white border-2 border-blue-600 transition-all text-sm font-semibold"
                 >
                   <Download size={16} />
                   Download
@@ -210,7 +210,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
               )}
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg transition-colors hover:bg-slate-800 text-slate-400 hover:text-white"
+                className="p-2 rounded-lg transition-colors hover:bg-slate-100 text-slate-600 hover:text-slate-900"
               >
                 <X size={24} />
               </button>
@@ -219,17 +219,17 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
 
           {/* Content */}
           <div 
-            className="flex-1 overflow-y-auto p-8 bg-slate-950/30"
+            className="flex-1 overflow-y-auto p-8 bg-white"
             style={{
               scrollbarWidth: 'thin',
-              scrollbarColor: '#475569 #0f172a'
+              scrollbarColor: '#94a3b8 #f8fafc'
             }}
           >
             {isLoading && (
               <div className="flex items-center justify-center h-64">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-                  <p className="text-slate-400">Loading resume...</p>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                  <p className="text-slate-600">Loading resume...</p>
                 </div>
               </div>
             )}
@@ -237,12 +237,12 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
             {error && (
               <div className="flex items-center justify-center h-64">
                 <div className="text-center">
-                  <p className="text-red-400 mb-4">{error}</p>
+                  <p className="text-red-600 mb-4">{error}</p>
                   <a
                     href={cvFile}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-400 hover:underline inline-flex items-center gap-2 mt-2"
+                    className="text-blue-600 hover:underline inline-flex items-center gap-2 mt-2"
                   >
                     Open in new tab instead
                   </a>
@@ -252,7 +252,7 @@ export default function CVModal({ isOpen, onClose, memberName, memberRole, cvFil
 
             {!isLoading && !error && cvContent && (
               <div className="max-w-3xl mx-auto">
-                <div className="text-slate-200 space-y-0 leading-relaxed">
+                <div className="text-slate-800 space-y-0 leading-relaxed">
                   {formatCVContent(cvContent)}
                 </div>
               </div>

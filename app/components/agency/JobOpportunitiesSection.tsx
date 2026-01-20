@@ -1,6 +1,7 @@
 import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Home, Clock, Users, Check } from "lucide-react";
 import Link from "next/link";
 import { fetchSimplyHiredJobs } from "@/app/lib/actions";
+import WaveLinesAnimation from "./WaveLinesAnimation";
 
 export default async function JobOpportunitiesSection() {
   // Arise Opportunity Data
@@ -39,61 +40,56 @@ export default async function JobOpportunitiesSection() {
   const opportunities = [ariseOpportunity, ...rssOpportunities].slice(0, 3);
 
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="py-24 relative z-10 overflow-hidden w-full">
+      {/* Wave Lines Animation Background - Full Width */}
+      <WaveLinesAnimation />
+      
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-slate-100">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-blue-700">
             Work From Home with Top Brands
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             Join Resilio Partners and start earning as a remote customer service professional
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {opportunities.map((job, index) => {
-            // Cycle through brand colors: Blue, Green, Yellow
-            const colors = [
-              { border: 'border-[#0054A6]/50', hoverBorder: 'hover:border-[#0054A6]', shadow: 'hover:shadow-[0_0_30px_rgba(0,84,166,0.3)]', badge: 'bg-[#0054A6]/80 border-[#0054A6]/50', text: 'text-[#0054A6]', icon: 'text-[#0054A6]' },
-              { border: 'border-[#00A651]/50', hoverBorder: 'hover:border-[#00A651]', shadow: 'hover:shadow-[0_0_30px_rgba(0,166,81,0.3)]', badge: 'bg-[#00A651]/80 border-[#00A651]/50', text: 'text-[#00A651]', icon: 'text-[#00A651]' },
-              { border: 'border-[#FFD400]/50', hoverBorder: 'hover:border-[#FFD400]', shadow: 'hover:shadow-[0_0_30px_rgba(255,212,0,0.3)]', badge: 'bg-[#FFD400]/80 border-[#FFD400]/50', text: 'text-[#FFD400]', icon: 'text-[#FFD400]' },
-            ];
-            const colorScheme = colors[index % 3];
-
             return (
               <div
                 key={`${job.title}-${index}`}
-                className={`group bg-white border-2 ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow} shadow-lg`}
+                className="group bg-white border border-slate-200 hover:border-blue-500 rounded-2xl p-6 transition-all duration-300 shadow-md hover:shadow-xl"
               >
                 {/* Featured Badge */}
                 <div className="mb-4">
-                  <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${colorScheme.badge} ${colorScheme.text} uppercase tracking-wider`}>
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white uppercase tracking-wider">
                     Featured Opportunity
                   </span>
                 </div>
 
                 {/* Job Title */}
                 <div className="mb-4">
-                  <h3 className={`text-xl font-bold mb-2 group-hover:opacity-80 transition-colors line-clamp-2 ${colorScheme.text}`}>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-700 transition-colors line-clamp-2 text-slate-900">
                     {job.title}
                   </h3>
                   
                   {/* Company & Location */}
                   <div className="flex items-center gap-3 mb-2">
-                    <Building2 className={`w-4 h-4 ${colorScheme.icon}`} />
-                    <span className="text-sm text-slate-700 font-medium">
+                    <Building2 className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm text-slate-600 font-medium">
                       {job.company}
                     </span>
                   </div>
                   
                   <div className="flex items-center gap-3 mb-2">
-                    <MapPin className={`w-4 h-4 ${colorScheme.icon}`} />
+                    <MapPin className="w-4 h-4 text-blue-600" />
                     <span className="text-sm text-slate-600">{job.location}</span>
                   </div>
                   
                   <div className="flex items-center gap-3 mb-3">
-                    <DollarSign className={`w-4 h-4 ${colorScheme.icon}`} />
-                    <span className={`text-sm font-semibold ${colorScheme.text}`}>
+                    <DollarSign className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-semibold text-slate-900">
                       {job.salary}
                     </span>
                   </div>
@@ -105,10 +101,10 @@ export default async function JobOpportunitiesSection() {
                     <div className="grid grid-cols-2 gap-2 mb-3">
                       {(job.benefits as any[]).slice(0, 4).map((benefit: any, idx: number) => (
                         <div key={idx} className="flex items-start gap-2">
-                          <benefit.icon className={`w-3 h-3 ${colorScheme.icon} mt-0.5 flex-shrink-0`} />
+                          <benefit.icon className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
                           <div>
-                            <p className="text-xs font-semibold text-slate-700">{benefit.text}</p>
-                            <p className="text-xs text-slate-500 line-clamp-1">{benefit.subtext}</p>
+                            <p className="text-xs font-semibold text-slate-900">{benefit.text}</p>
+                            <p className="text-xs text-slate-600 line-clamp-1">{benefit.subtext}</p>
                           </div>
                         </div>
                       ))}
@@ -127,15 +123,15 @@ export default async function JobOpportunitiesSection() {
                 {job.isArise && (
                   <div className="mb-4 text-xs text-slate-600">
                     <div className="flex items-center gap-2 mb-2">
-                      <Check className={`w-3 h-3 ${colorScheme.icon}`} />
+                      <Check className="w-3 h-3 text-blue-600" />
                       <span>Quiet home workspace</span>
                     </div>
                     <div className="flex items-center gap-2 mb-2">
-                      <Check className={`w-3 h-3 ${colorScheme.icon}`} />
+                      <Check className="w-3 h-3 text-blue-600" />
                       <span>Reliable high-speed internet</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className={`w-3 h-3 ${colorScheme.icon}`} />
+                      <Check className="w-3 h-3 text-blue-600" />
                       <span>Excellent communication skills</span>
                     </div>
                   </div>
@@ -148,18 +144,18 @@ export default async function JobOpportunitiesSection() {
                       href={job.jobUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 ${colorScheme.text} hover:opacity-80 font-semibold text-sm transition-all`}
+                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors"
                     >
                       <span>View Job</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={14} className="text-blue-600" />
                     </a>
                   ) : (
                     <Link
                       href={job.jobUrl || "#"}
-                      className={`inline-flex items-center gap-2 ${colorScheme.text} hover:opacity-80 font-semibold text-sm transition-all`}
+                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors"
                     >
                       <span>Apply Now</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={14} className="text-blue-600" />
                     </Link>
                   )}
                 </div>
@@ -172,10 +168,10 @@ export default async function JobOpportunitiesSection() {
         <div className="text-center mt-12">
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-3 group font-semibold text-lg transition-colors text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651] hover:opacity-80"
+            className="inline-flex items-center gap-3 group font-semibold text-lg transition-colors text-blue-600 hover:text-blue-700"
           >
             <span>View All Opportunities</span>
-            <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ExternalLink className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>

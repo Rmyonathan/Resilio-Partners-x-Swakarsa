@@ -3,8 +3,18 @@
 import { ArrowRight, Users } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import { useEffect, useState } from "react";
 
 export default function TeamPreview() {
+  const [connectingIdeasAnimation, setConnectingIdeasAnimation] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/animations/Connecting Ideas.json')
+      .then(res => res.json())
+      .then(data => setConnectingIdeasAnimation(data))
+      .catch(err => console.error('Failed to load connecting ideas animation:', err));
+  }, []);
   // Use the same data as /team page (Jon Irwin and Jethro Lim)
   const featuredMembers = [
     {
@@ -24,26 +34,30 @@ export default function TeamPreview() {
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6 max-w-4xl">
+    <section className="py-24 relative z-10 overflow-hidden">
+      {/* Connecting Ideas Animation Background */}
+      {connectingIdeasAnimation && (
+        <div className="absolute inset-0 flex items-center justify-center opacity-20 -z-10 pointer-events-none">
+          <Lottie 
+            animationData={connectingIdeasAnimation} 
+            loop={true}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )}
+      
+      <div className="container mx-auto px-6 max-w-4xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-blue-700">
             Meet Our Team
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             The talented professionals behind every successful project
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-8 mb-12 max-w-3xl mx-auto">
           {featuredMembers.map((member: any, index: number) => {
-            // Assign colors: Blue for first, Green for second
-            const colors = [
-              { border: 'border-[#0054A6]/50', hoverBorder: 'hover:border-[#0054A6]', shadow: 'hover:shadow-[0_0_30px_rgba(0,84,166,0.3)]', avatarBorder: 'border-[#0054A6]/30', hoverAvatarBorder: 'group-hover:border-[#0054A6]/60', roleColor: 'text-[#0054A6]' },
-              { border: 'border-[#00A651]/50', hoverBorder: 'hover:border-[#00A651]', shadow: 'hover:shadow-[0_0_30px_rgba(0,166,81,0.3)]', avatarBorder: 'border-[#00A651]/30', hoverAvatarBorder: 'group-hover:border-[#00A651]/60', roleColor: 'text-[#00A651]' },
-            ];
-            const colorScheme = colors[index % 2];
-            
             return (
             <motion.div
               key={member.id}
@@ -51,10 +65,10 @@ export default function TeamPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`group bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 text-center transition-all duration-300 ${colorScheme.shadow}`}
+              className="group bg-white border border-slate-200 hover:border-blue-500 rounded-2xl p-8 text-center transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer"
             >
               {/* Avatar */}
-              <div className={`relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-2 ${colorScheme.avatarBorder} ${colorScheme.hoverAvatarBorder} transition-colors`}>
+              <div className="relative w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-2 border-slate-200 group-hover:border-blue-500 transition-all duration-300">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -63,14 +77,14 @@ export default function TeamPreview() {
               </div>
 
               {/* Name & Role */}
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FFD400] transition-colors">
+              <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
                 {member.name}
               </h3>
-              <p className={`text-sm ${colorScheme.roleColor} font-semibold mb-3`}>
+              <p className="text-sm text-blue-600 font-bold uppercase tracking-wide mb-4">
                 {member.role}
               </p>
-              <p className="text-xs text-slate-400 line-clamp-3">
-                {member.description?.substring(0, 150)}
+              <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                {member.description}
               </p>
             </motion.div>
             );
@@ -80,11 +94,11 @@ export default function TeamPreview() {
         <div className="text-center">
           <Link
             href="/team"
-            className="inline-flex items-center gap-3 group text-[#FFD400] hover:text-[#00A651] font-semibold text-lg transition-colors"
+            className="inline-flex items-center gap-3 text-blue-600 hover:text-blue-700 font-semibold text-lg transition-colors"
           >
-            <Users className="w-5 h-5" />
+            <Users className="w-5 h-5 text-blue-600" />
             <span>Meet the Full Team</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
       </div>

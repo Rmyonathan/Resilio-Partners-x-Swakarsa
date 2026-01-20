@@ -3,8 +3,18 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Lottie from "lottie-react";
+import { useEffect, useState } from "react";
 
 export default function PortfolioPreview() {
+  const [docaAnimation, setDocaAnimation] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/animations/doca.json')
+      .then(res => res.json())
+      .then(data => setDocaAnimation(data))
+      .catch(err => console.error('Failed to load doca animation:', err));
+  }, []);
   // Use specific projects: OneClick, Hotel Dwipa (or another), and Omtal MMORPG
   const featuredProjects = [
     {
@@ -37,26 +47,37 @@ export default function PortfolioPreview() {
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="py-24 relative z-10 overflow-hidden">
+      {/* Doca Animation Background */}
+      {docaAnimation && (
+        <div className="absolute inset-0 flex items-center justify-center opacity-20 -z-10 pointer-events-none">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="w-full h-full"
+          >
+            <Lottie 
+              animationData={docaAnimation} 
+              loop={true}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </motion.div>
+        </div>
+      )}
+      
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-blue-700">
             Featured Projects
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             A glimpse into our recent work—solutions that drive real business impact
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {featuredProjects.map((project: any, index: number) => {
-            // Assign colors based on index: Blue, Green, Yellow
-            const colors = [
-              { border: 'border-[#0054A6]/50', hoverBorder: 'hover:border-[#0054A6]', shadow: 'hover:shadow-[0_0_30px_rgba(0,84,166,0.3)]', badge: 'bg-[#0054A6]/80 border-[#0054A6]/50', text: 'text-[#0054A6]' },
-              { border: 'border-[#00A651]/50', hoverBorder: 'hover:border-[#00A651]', shadow: 'hover:shadow-[0_0_30px_rgba(0,166,81,0.3)]', badge: 'bg-[#00A651]/80 border-[#00A651]/50', text: 'text-[#00A651]' },
-              { border: 'border-[#FFD400]/50', hoverBorder: 'hover:border-[#FFD400]', shadow: 'hover:shadow-[0_0_30px_rgba(255,212,0,0.3)]', badge: 'bg-[#FFD400]/80 border-[#FFD400]/50', text: 'text-[#FFD400]' },
-            ];
-            const colorScheme = colors[index % 3];
+            const isFirstCard = index === 0;
             
             return (
             <motion.div
@@ -65,10 +86,14 @@ export default function PortfolioPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`group bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl overflow-hidden transition-all duration-300 ${colorScheme.shadow}`}
+              className={`group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer ${
+                isFirstCard 
+                  ? 'bg-white border border-slate-200 hover:border-blue-500 shadow-md hover:shadow-2xl' 
+                  : 'bg-white border border-slate-200 hover:border-blue-500 shadow-md hover:shadow-xl'
+              }`}
             >
               {/* Project Image */}
-              <div className="relative h-48 overflow-hidden bg-slate-800">
+              <div className="relative h-48 overflow-hidden bg-slate-100">
                 <img
                   src={project.image || "/portfolio/placeholder.jpg"}
                   alt={project.title}
@@ -77,41 +102,39 @@ export default function PortfolioPreview() {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
                 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${colorScheme.badge} text-white backdrop-blur-sm border`}>
+                {/* Category Badge - Floating */}
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white">
                     {project.category}
                   </span>
                 </div>
               </div>
 
               {/* Project Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#FFD400] transition-colors line-clamp-2">
+              <div className="p-6 flex flex-col flex-grow bg-white">
+                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors line-clamp-2">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+                <p className="text-slate-600 text-sm mb-6 line-clamp-2 flex-grow">
                   {project.shortDescription}
                 </p>
                 
-                <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-                  <span className="text-xs text-slate-500">{project.client}</span>
+                <div className="flex items-center justify-between pt-4 border-t border-slate-200 mt-auto">
+                  <span className="text-xs font-medium text-slate-500">{project.client}</span>
                   {project.externalLink && project.externalLink !== "#" ? (
                     <a
                       href={project.externalLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-2 ${colorScheme.text} text-sm font-semibold hover:opacity-80 transition-opacity`}
+                      className="flex items-center gap-2 text-blue-600 text-sm font-bold hover:text-blue-700 transition-colors"
                     >
-                      <span>View</span>
-                      <ExternalLink size={14} />
+                      <span>View Project</span>
+                      <ExternalLink size={14} className="text-blue-600" />
                     </a>
                   ) : (
-                    <div className={`flex items-center gap-2 ${colorScheme.text} text-sm font-semibold`}>
-                      <span>View</span>
-                      <ExternalLink size={14} />
+                    <div className="flex items-center gap-2 text-slate-400 text-sm font-bold opacity-50 cursor-not-allowed">
+                      <span>Coming Soon</span>
                     </div>
                   )}
                 </div>
@@ -124,10 +147,10 @@ export default function PortfolioPreview() {
         <div className="text-center">
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-3 group text-[#FFD400] hover:text-[#00A651] font-semibold text-lg transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl"
           >
             <span>View Full Portfolio</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>

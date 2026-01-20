@@ -1,6 +1,7 @@
 import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Calendar } from "lucide-react";
 import Link from "next/link";
 import { fetchSimplyHiredJobs } from "@/app/lib/actions";
+import GeometricBackground from "./GeometricBackground";
 
 export default async function ScrapedJobsSection() {
   // Fetch scraped jobs
@@ -9,14 +10,18 @@ export default async function ScrapedJobsSection() {
   // If no jobs found, show fallback content
   if (scrapedJobs.length === 0) {
     return (
-      <section className="py-24 relative">
-        <div className="container mx-auto px-6 max-w-6xl">
+      <section className="py-24 relative bg-slate-50 overflow-hidden">
+        <GeometricBackground />
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-              External Career Opportunities
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-blue-700">
+              More Remote Opportunities
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Check back soon for remote developer opportunities
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Freshly gathered remote positions from across the web. 
+              <span className="block text-sm mt-2 text-slate-500 font-medium">
+                (Aggregated from various sources)
+              </span>
             </p>
           </div>
         </div>
@@ -25,14 +30,18 @@ export default async function ScrapedJobsSection() {
   }
 
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="py-24 bg-slate-50 relative overflow-hidden">
+      <GeometricBackground />
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
-            External Career Opportunities
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-blue-700">
+            More Remote Opportunities
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Discover remote developer positions from top companies
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Freshly gathered remote positions from across the web. 
+            <span className="block text-sm mt-2 text-slate-500 font-medium">
+              (Aggregated from various sources)
+            </span>
           </p>
         </div>
 
@@ -40,27 +49,27 @@ export default async function ScrapedJobsSection() {
           {scrapedJobs.map((job, index) => {
             // Cycle through brand colors: Blue, Green, Yellow
             const colors = [
-              { border: 'border-[#0054A6]/50', hoverBorder: 'hover:border-[#0054A6]', shadow: 'hover:shadow-[0_0_30px_rgba(0,84,166,0.3)]', badge: 'bg-[#0054A6]/80 border-[#0054A6]/50', text: 'text-[#0054A6]', icon: 'text-[#0054A6]' },
-              { border: 'border-[#00A651]/50', hoverBorder: 'hover:border-[#00A651]', shadow: 'hover:shadow-[0_0_30px_rgba(0,166,81,0.3)]', badge: 'bg-[#00A651]/80 border-[#00A651]/50', text: 'text-[#00A651]', icon: 'text-[#00A651]' },
-              { border: 'border-[#FFD400]/50', hoverBorder: 'hover:border-[#FFD400]', shadow: 'hover:shadow-[0_0_30px_rgba(255,212,0,0.3)]', badge: 'bg-[#FFD400]/80 border-[#FFD400]/50', text: 'text-[#FFD400]', icon: 'text-[#FFD400]' },
+              { border: 'border-blue-200', hoverBorder: 'hover:border-blue-400', shadow: 'hover:shadow-lg', text: 'text-blue-600', icon: 'text-blue-600', bg: 'bg-blue-50' },
+              { border: 'border-green-200', hoverBorder: 'hover:border-green-400', shadow: 'hover:shadow-lg', text: 'text-green-600', icon: 'text-green-600', bg: 'bg-green-50' },
+              { border: 'border-yellow-200', hoverBorder: 'hover:border-yellow-400', shadow: 'hover:shadow-lg', text: 'text-yellow-600', icon: 'text-yellow-600', bg: 'bg-yellow-50' },
             ];
             const colorScheme = colors[index % 3];
 
             return (
               <div
                 key={`${job.title}-${job.company}-${index}`}
-                className={`group bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow}`}
+                className={`group bg-white border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow}`}
               >
                 {/* Job Title */}
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#FFD400] transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                     {job.title}
                   </h3>
                   
                   {/* Company & Location */}
                   <div className="flex items-center gap-3 mb-2">
                     <Building2 className={`w-4 h-4 ${colorScheme.icon}`} />
-                    <span className="text-sm text-slate-300 font-medium">
+                    <span className="text-sm text-slate-600 font-medium">
                       {job.company || 'Company not specified'}
                     </span>
                   </div>
@@ -68,7 +77,7 @@ export default async function ScrapedJobsSection() {
                   {job.location && (
                     <div className="flex items-center gap-3 mb-2">
                       <MapPin className={`w-4 h-4 ${colorScheme.icon}`} />
-                      <span className="text-sm text-slate-400">{job.location}</span>
+                      <span className="text-sm text-slate-500">{job.location}</span>
                     </div>
                   )}
                   
@@ -85,14 +94,14 @@ export default async function ScrapedJobsSection() {
                 {/* Description Preview */}
                 {job.description && (
                   <div className="mb-4">
-                    <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-sm text-slate-600 line-clamp-3 leading-relaxed">
                       {job.description.substring(0, 150)}...
                     </p>
                   </div>
                 )}
 
                 {/* CTA Button */}
-                <div className="pt-4 border-t border-slate-800">
+                <div className="pt-4 border-t border-slate-200">
                   {job.jobUrl ? (
                     <a
                       href={job.jobUrl}
@@ -104,7 +113,7 @@ export default async function ScrapedJobsSection() {
                       <ExternalLink size={14} />
                     </a>
                   ) : (
-                    <span className="text-sm text-slate-500">Job details unavailable</span>
+                    <span className="text-sm text-slate-400">Job details unavailable</span>
                   )}
                 </div>
               </div>
@@ -116,7 +125,7 @@ export default async function ScrapedJobsSection() {
         <div className="text-center mt-12">
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-3 group text-[#FFD400] hover:text-[#00A651] font-semibold text-lg transition-colors"
+            className="inline-flex items-center gap-3 group text-blue-600 hover:text-blue-700 font-semibold text-lg transition-colors"
           >
             <span>View All Opportunities</span>
             <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

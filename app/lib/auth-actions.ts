@@ -40,9 +40,9 @@ export async function authenticate(
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Email atau Password salah.';
+          return 'Invalid email or password.';
         default:
-          return 'Terjadi kesalahan sistem.';
+          return 'An error occurred. Please try again.';
       }
     }
     throw error;

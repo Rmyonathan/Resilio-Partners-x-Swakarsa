@@ -14,32 +14,32 @@ export default function LoginForm() {
   return (
     <form action={dispatch} className="space-y-6">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-300">Email Address</label>
+        <label className="text-sm font-medium text-slate-700">Email Address</label>
         <input
           type="email"
           name="email"
           placeholder="admin@swakarsa.id"
           required
-          className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all placeholder:text-slate-600"
+          className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all placeholder:text-slate-400"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium text-slate-300">Password</label>
+        <label className="text-sm font-medium text-slate-700">Password</label>
         <div className="relative">
           <input
             type="password"
             name="password"
             placeholder="••••••••"
             required
-            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all placeholder:text-slate-600"
+            className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all placeholder:text-slate-400"
           />
-          <Lock size={16} className="absolute right-4 top-3.5 text-slate-500" />
+          <Lock size={16} className="absolute right-4 top-3.5 text-slate-400" />
         </div>
       </div>
 
       {/* Menampilkan Error jika login gagal */}
       {errorMessage && (
-        <div className="flex items-center gap-2 text-red-400 text-sm bg-red-900/20 p-3 rounded-lg border border-red-900/50">
+        <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-200">
           <AlertCircle size={16} />
           <p>{errorMessage}</p>
         </div>
@@ -58,7 +58,7 @@ function LoginButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2"
+      className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2"
     >
       {pending ? (
         <>

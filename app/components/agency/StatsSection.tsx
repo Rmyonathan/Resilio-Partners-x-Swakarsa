@@ -52,7 +52,7 @@ export default function StatsSection() {
 
   return (
     <section className="container mx-auto px-6 relative z-20 -mt-20 sm:-mt-24">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 bg-white border border-gray-200 shadow-lg rounded-3xl p-8 md:p-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 bg-white border border-slate-200 shadow-md rounded-3xl p-8 md:p-10">
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -62,10 +62,10 @@ export default function StatsSection() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="text-center group"
           >
-            <div className="text-3xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651] bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+            <div className="text-3xl md:text-5xl font-bold mb-2 text-blue-600 group-hover:scale-110 transition-transform duration-300">
               <CountUpAnimation end={stat.value} suffix={stat.suffix} delay={index * 0.2} />
             </div>
-            <p className="text-xs md:text-sm font-medium uppercase tracking-wider text-gray-600">
+            <p className="text-xs md:text-sm font-medium uppercase tracking-wider text-slate-600">
               {stat.label}
             </p>
           </motion.div>
