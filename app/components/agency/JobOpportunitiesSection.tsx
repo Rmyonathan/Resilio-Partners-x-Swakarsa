@@ -63,7 +63,7 @@ export default async function JobOpportunitiesSection() {
             return (
               <div
                 key={`${job.title}-${index}`}
-                className={`group bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 border ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow}`}
+                className={`group bg-white border-2 ${colorScheme.border} ${colorScheme.hoverBorder} rounded-2xl p-6 transition-all duration-300 ${colorScheme.shadow} shadow-lg`}
               >
                 {/* Featured Badge */}
                 <div className="mb-4">
@@ -74,21 +74,21 @@ export default async function JobOpportunitiesSection() {
 
                 {/* Job Title */}
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#FFD400] transition-colors line-clamp-2">
+                  <h3 className={`text-xl font-bold mb-2 group-hover:opacity-80 transition-colors line-clamp-2 ${colorScheme.text}`}>
                     {job.title}
                   </h3>
                   
                   {/* Company & Location */}
                   <div className="flex items-center gap-3 mb-2">
                     <Building2 className={`w-4 h-4 ${colorScheme.icon}`} />
-                    <span className="text-sm text-slate-300 font-medium">
+                    <span className="text-sm text-slate-700 font-medium">
                       {job.company}
                     </span>
                   </div>
                   
                   <div className="flex items-center gap-3 mb-2">
                     <MapPin className={`w-4 h-4 ${colorScheme.icon}`} />
-                    <span className="text-sm text-slate-400">{job.location}</span>
+                    <span className="text-sm text-slate-600">{job.location}</span>
                   </div>
                   
                   <div className="flex items-center gap-3 mb-3">
@@ -107,7 +107,7 @@ export default async function JobOpportunitiesSection() {
                         <div key={idx} className="flex items-start gap-2">
                           <benefit.icon className={`w-3 h-3 ${colorScheme.icon} mt-0.5 flex-shrink-0`} />
                           <div>
-                            <p className="text-xs font-semibold text-slate-300">{benefit.text}</p>
+                            <p className="text-xs font-semibold text-slate-700">{benefit.text}</p>
                             <p className="text-xs text-slate-500 line-clamp-1">{benefit.subtext}</p>
                           </div>
                         </div>
@@ -118,14 +118,14 @@ export default async function JobOpportunitiesSection() {
 
                 {/* Description Preview */}
                 <div className="mb-4">
-                  <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed">
+                  <p className="text-sm text-slate-600 line-clamp-3 leading-relaxed">
                     {job.description}
                   </p>
                 </div>
 
                 {/* Requirements Preview - Only for Arise job */}
                 {job.isArise && (
-                  <div className="mb-4 text-xs text-slate-500">
+                  <div className="mb-4 text-xs text-slate-600">
                     <div className="flex items-center gap-2 mb-2">
                       <Check className={`w-3 h-3 ${colorScheme.icon}`} />
                       <span>Quiet home workspace</span>
@@ -142,7 +142,7 @@ export default async function JobOpportunitiesSection() {
                 )}
 
                 {/* CTA Button */}
-                <div className="pt-4 border-t border-slate-800">
+                <div className="pt-4 border-t border-slate-200">
                   {job.jobUrl && job.jobUrl.startsWith('http') ? (
                     <a
                       href={job.jobUrl}
@@ -172,7 +172,7 @@ export default async function JobOpportunitiesSection() {
         <div className="text-center mt-12">
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-3 group text-[#0054A6] hover:text-[#00A651] font-semibold text-lg transition-colors"
+            className="inline-flex items-center gap-3 group font-semibold text-lg transition-colors text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651] hover:opacity-80"
           >
             <span>View All Opportunities</span>
             <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #000000;
   
   /* Strict Resilio Brand Colors */
   --resilio-green: #00A651;
@@ -21,16 +21,10 @@
 }
 
 body {
-  background: 
-    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 166, 81, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 80% 50% at 80% 80%, rgba(0, 84, 166, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255, 212, 0, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 100% at 0% 0%, rgba(0, 84, 166, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 100% at 100% 100%, rgba(0, 166, 81, 0.08) 0%, transparent 50%),
-    linear-gradient(135deg, #0f1620 0%, #1a2332 50%, #0f1620 100%);
+  background: #ffffff;
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -44,14 +38,14 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #888;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #555;
 }

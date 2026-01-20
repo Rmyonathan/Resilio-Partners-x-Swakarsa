@@ -16,13 +16,13 @@ export default function AboutPreview() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-white">
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
               Who We Are
             </h2>
-            <p className="text-xl text-slate-300 mb-6 leading-relaxed">
+            <p className="text-xl text-gray-700 mb-6 leading-relaxed">
               Resilio Partners is a strategic consulting firm that partners with growing businesses to build custom platforms, optimize workflows, and deliver complete marketing solutions.
             </p>
-            <p className="text-lg text-slate-400 mb-8 leading-relaxed">
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               We combine deep technical expertise with business strategy to create solutions that actually ship—not just concepts, but real, working systems that drive growth.
             </p>
             <Link
@@ -46,19 +46,19 @@ export default function AboutPreview() {
               <div className="grid grid-cols-2 gap-4 w-full">
                 <div className="bg-[#0054A6]/30 rounded-2xl p-6 border border-[#0054A6]/40 backdrop-blur-sm">
                   <div className="text-3xl font-bold text-[#0054A6] mb-2">100+</div>
-                  <div className="text-sm text-slate-300">Projects Delivered</div>
+                  <div className="text-sm text-gray-600">Projects Delivered</div>
                 </div>
                 <div className="bg-[#00A651]/30 rounded-2xl p-6 border border-[#00A651]/40 backdrop-blur-sm">
                   <div className="text-3xl font-bold text-[#00A651] mb-2">50+</div>
-                  <div className="text-sm text-slate-300">Happy Clients</div>
+                  <div className="text-sm text-gray-600">Happy Clients</div>
                 </div>
                 <div className="bg-[#FFD400]/30 rounded-2xl p-6 border border-[#FFD400]/40 backdrop-blur-sm">
                   <div className="text-3xl font-bold text-[#FFD400] mb-2">8+</div>
-                  <div className="text-sm text-slate-300">Years Experience</div>
+                  <div className="text-sm text-gray-600">Years Experience</div>
                 </div>
                 <div className="bg-gradient-to-br from-[#0054A6]/30 to-[#00A651]/30 rounded-2xl p-6 border border-[#0054A6]/40 backdrop-blur-sm">
-                  <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                  <div className="text-sm text-slate-300">Support</div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">24/7</div>
+                  <div className="text-sm text-gray-600">Support</div>
                 </div>
               </div>
             </div>

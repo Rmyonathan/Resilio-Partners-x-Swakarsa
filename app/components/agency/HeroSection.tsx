@@ -45,15 +45,15 @@ export default function HeroSection() {
     }}>
         <AnimatedGrid isDark={isDark} />
 
-        <div className="container relative z-10 px-4 sm:px-6 text-center text-white max-w-5xl">
+        <div className="container relative z-10 px-4 sm:px-6 text-center max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-             <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold border backdrop-blur-sm flex items-center gap-2 border-[#0054A6]/30 text-[#0054A6]"
-                  style={{ backgroundColor: 'rgba(0, 84, 166, 0.1)' }}>
+             <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold border backdrop-blur-sm flex items-center gap-2 border-[#0054A6]/30"
+                  style={{ backgroundColor: 'rgba(0, 84, 166, 0.1)', color: '#0054A6' }}>
                  <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#0054A6' }}></span>
                     <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: '#0054A6' }}></span>
@@ -66,11 +66,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 text-white leading-tight"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 leading-tight"
           >
-            AI-Powered Business Solutions <br className="hidden sm:block" />
-            <span className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: 'linear-gradient(to right, #00A651, #0054A6)' }}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
+              AI-Powered Business Solutions <br className="hidden sm:block" />
               That Actually Ship
             </span>
           </motion.h1>
@@ -79,7 +78,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10 leading-relaxed text-slate-400"
+            className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10 leading-relaxed text-gray-600"
           >
             We partner with growing businesses to build custom platforms, optimize workflows, and deliver complete marketing solutions.
           </motion.p>
@@ -102,7 +101,7 @@ export default function HeroSection() {
               </button>
             </a>
             <Link href="/portfolio" className="w-full sm:w-auto">
-              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 border border-slate-600 text-white hover:border-[#0054A6] hover:text-[#0054A6] w-full sm:w-auto text-lg">
+              <button className="relative overflow-hidden group px-8 py-4 rounded-xl font-semibold transition-all duration-300 border border-gray-300 text-gray-700 hover:border-[#0054A6] hover:text-[#0054A6] w-full sm:w-auto text-lg">
                 <span className="relative z-10">View Our Work</span>
               </button>
             </Link>
@@ -115,7 +114,7 @@ export default function HeroSection() {
             transition={{ delay: 1, duration: 2, repeat: Infinity }}
             className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
         >
-            <ChevronDown size={32} className="text-slate-500" />
+            <ChevronDown size={32} className="text-gray-400" />
         </motion.div>
     </section>
   );

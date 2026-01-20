@@ -17,25 +17,18 @@ export default async function JobsPage() {
   // Fetch curated jobs (only active ones)
   const curatedJobs = await getCuratedJobs();
   return (
-    <main className="min-h-screen text-slate-100 selection:bg-[#0054A6]/30 relative overflow-hidden" style={{
-      background: `
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 166, 81, 0.2), transparent),
-        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 84, 166, 0.18), transparent),
-        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 212, 0, 0.15), transparent),
-        linear-gradient(180deg, #1e293b 0%, #0f172a 100%)
-      `
-    }}>
+    <main className="min-h-screen bg-white relative overflow-hidden">
       <AtomBackground />
       {/* Section 1: Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight text-slate-100">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
             Work From Home with <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A651] to-[#0054A6]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
               Top Brands
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-slate-400 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
             Join Resilio Partners and start earning as a remote customer service professional
           </p>
         </div>
@@ -47,130 +40,130 @@ export default async function JobsPage() {
           <div className="max-w-6xl mx-auto">
             {/* Featured Badge */}
             <div className="flex justify-center mb-8">
-              <span className="inline-block px-6 py-2 rounded-full text-sm font-bold border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 uppercase tracking-wider">
+              <span className="inline-block px-6 py-2 rounded-full text-sm font-bold border border-[#0054A6]/30 bg-blue-50 text-[#0054A6] uppercase tracking-wider">
                 Featured Opportunity
               </span>
             </div>
 
             {/* Main Arise Card */}
-            <div className="bg-gradient-to-br from-slate-900 via-indigo-900/20 to-slate-900 border border-indigo-500/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-indigo-900/20 mb-16">
+            <div className="bg-white border border-gray-200 rounded-3xl p-8 md:p-12 shadow-lg mb-16">
               <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
                   Work From Home Providing Customer Service for Major Brands
                 </h2>
-                <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                   Earn $9-$25/hour depending on client and experience
                 </p>
               </div>
 
               {/* Benefits Grid */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                    <Home className="text-indigo-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                    <Home className="text-[#0054A6]" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">100% Remote Work</h3>
-                    <p className="text-slate-400 text-sm">Work from the comfort of your home</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">100% Remote Work</h3>
+                    <p className="text-gray-600 text-sm">Work from the comfort of your home</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <Clock className="text-green-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
+                    <Clock className="text-[#00A651]" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">Flexible Schedule</h3>
-                    <p className="text-slate-400 text-sm">You choose your hours</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">Flexible Schedule</h3>
+                    <p className="text-gray-600 text-sm">You choose your hours</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Briefcase className="text-purple-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0">
+                    <Briefcase className="text-purple-600" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">Work With Top Brands</h3>
-                    <p className="text-slate-400 text-sm">Apple, Disney, Intuit, and more</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">Work With Top Brands</h3>
+                    <p className="text-gray-600 text-sm">Apple, Disney, Intuit, and more</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                    <Users className="text-cyan-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-cyan-100 flex items-center justify-center flex-shrink-0">
+                    <Users className="text-cyan-600" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">Comprehensive Support</h3>
-                    <p className="text-slate-400 text-sm">From Resilio Partners team</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">Comprehensive Support</h3>
+                    <p className="text-gray-600 text-sm">From Resilio Partners team</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
-                    <DollarSign className="text-yellow-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="text-[#FFD400]" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">Payroll Processing</h3>
-                    <p className="text-slate-400 text-sm">Bi-weekly payments handled for you</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">Payroll Processing</h3>
+                    <p className="text-gray-600 text-sm">Bi-weekly payments handled for you</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 bg-black/40 rounded-xl border border-white/5">
-                  <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center flex-shrink-0">
-                    <Briefcase className="text-pink-400" size={24} />
+                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center flex-shrink-0">
+                    <Briefcase className="text-pink-600" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">Tax Assistance</h3>
-                    <p className="text-slate-400 text-sm">1099 help & quarterly estimates</p>
+                    <h3 className="font-bold text-lg mb-2 text-gray-900">Tax Assistance</h3>
+                    <p className="text-gray-600 text-sm">1099 help & quarterly estimates</p>
                   </div>
                 </div>
               </div>
 
               {/* Requirements Section */}
-              <div className="bg-black/60 rounded-2xl p-8 border border-white/10 mb-12">
-                <h3 className="text-2xl font-bold mb-6">Requirements</h3>
+              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 mb-12">
+                <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">Requirements</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="flex items-center gap-3">
-                    <Check className="text-green-400 flex-shrink-0" size={20} />
-                    <span className="text-slate-300">Quiet home workspace</span>
+                    <Check className="text-[#00A651] flex-shrink-0" size={20} />
+                    <span className="text-gray-700">Quiet home workspace</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Check className="text-green-400 flex-shrink-0" size={20} />
-                    <span className="text-slate-300">Reliable high-speed internet (25+ Mbps)</span>
+                    <Check className="text-[#00A651] flex-shrink-0" size={20} />
+                    <span className="text-gray-700">Reliable high-speed internet (25+ Mbps)</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Check className="text-green-400 flex-shrink-0" size={20} />
-                    <span className="text-slate-300">Computer with headset</span>
+                    <Check className="text-[#00A651] flex-shrink-0" size={20} />
+                    <span className="text-gray-700">Computer with headset</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Check className="text-green-400 flex-shrink-0" size={20} />
-                    <span className="text-slate-300">Excellent communication skills</span>
+                    <Check className="text-[#00A651] flex-shrink-0" size={20} />
+                    <span className="text-gray-700">Excellent communication skills</span>
                   </div>
                 </div>
               </div>
 
               {/* What Makes Resilio Different */}
-              <div className="bg-gradient-to-r from-indigo-900/30 to-purple-900/30 rounded-2xl p-8 border border-indigo-500/30 mb-12">
-                <h3 className="text-2xl font-bold mb-4">What Makes Resilio Different?</h3>
-                <p className="text-slate-300 mb-4 leading-relaxed">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200 mb-12">
+                <h3 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">What Makes Resilio Different?</h3>
+                <p className="text-gray-700 mb-4 leading-relaxed">
                   Working under Resilio Partners IBO is better than going solo:
                 </p>
-                <ul className="space-y-3 text-slate-300">
+                <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-3">
-                    <Check className="text-indigo-400 flex-shrink-0 mt-0.5" size={20} />
-                    <span><strong className="text-white">Dedicated tech support team</strong> - No waiting days for help</span>
+                    <Check className="text-[#0054A6] flex-shrink-0 mt-0.5" size={20} />
+                    <span><strong className="text-gray-900">Dedicated tech support team</strong> - No waiting days for help</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="text-indigo-400 flex-shrink-0 mt-0.5" size={20} />
-                    <span><strong className="text-white">Bi-weekly payroll processing</strong> - Handled for you</span>
+                    <Check className="text-[#0054A6] flex-shrink-0 mt-0.5" size={20} />
+                    <span><strong className="text-gray-900">Bi-weekly payroll processing</strong> - Handled for you</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="text-indigo-400 flex-shrink-0 mt-0.5" size={20} />
-                    <span><strong className="text-white">1099 tax assistance and quarterly estimate help</strong></span>
+                    <Check className="text-[#0054A6] flex-shrink-0 mt-0.5" size={20} />
+                    <span><strong className="text-gray-900">1099 tax assistance and quarterly estimate help</strong></span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Check className="text-indigo-400 flex-shrink-0 mt-0.5" size={20} />
-                    <span><strong className="text-white">Community of agents</strong> - Learn from and network with fellow professionals</span>
+                    <Check className="text-[#0054A6] flex-shrink-0 mt-0.5" size={20} />
+                    <span><strong className="text-gray-900">Community of agents</strong> - Learn from and network with fellow professionals</span>
                   </li>
                 </ul>
               </div>
@@ -194,8 +187,8 @@ export default async function JobsPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold mb-4">Ready to Get Started?</h2>
-              <p className="text-xl text-slate-400">
+              <h2 className="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">Ready to Get Started?</h2>
+              <p className="text-xl text-gray-600">
                 Fill out the form below and we'll get back to you within 2 business days
               </p>
             </div>

@@ -26,14 +26,7 @@ export default async function AgencyHome() {
   }
 
   return (
-    <main className="min-h-screen text-slate-100 selection:bg-[#0054A6]/30 relative overflow-hidden" style={{
-      background: `
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 166, 81, 0.2), transparent),
-        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 84, 166, 0.18), transparent),
-        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 212, 0, 0.15), transparent),
-        linear-gradient(180deg, #1e293b 0%, #0f172a 100%)
-      `
-    }}>
+    <main className="min-h-screen bg-white relative overflow-hidden">
       {/* Resilio Atom Background */}
       <AtomBackground />
       {/* Hero Section */}

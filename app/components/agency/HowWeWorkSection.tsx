@@ -62,10 +62,10 @@ export default function HowWeWorkSection() {
     <section className="py-24 relative">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">
             How We Work
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             A proven process designed to deliver results and drive business growth
           </p>
         </div>
@@ -81,13 +81,13 @@ export default function HowWeWorkSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: step.delay }}
-                className="bg-slate-900/80 border border-slate-800 rounded-2xl p-8 hover:border-indigo-500/50 transition-all duration-300 group"
+                className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#0054A6]/50 transition-all duration-300 group shadow-sm"
               >
                 <div className={`w-16 h-16 rounded-xl ${colors.bg} ${colors.hover} flex items-center justify-center mb-6 transition-colors`}>
                   <IconComponent className={colors.icon} size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-slate-400 leading-relaxed">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600 leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>

@@ -10,19 +10,12 @@ export const metadata = {
 
 export default function TeamPage() {
   return (
-    <main className="min-h-screen text-slate-100 selection:bg-[#0054A6]/30 relative overflow-hidden" style={{
-      background: `
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 166, 81, 0.2), transparent),
-        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 84, 166, 0.18), transparent),
-        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 212, 0, 0.15), transparent),
-        linear-gradient(180deg, #1e293b 0%, #0f172a 100%)
-      `
-    }}>
+    <main className="min-h-screen bg-white relative overflow-hidden">
       <AtomBackground />
       {/* Header */}
       <section className="pt-32 pb-12 container mx-auto px-6 text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-slate-100">
-          Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A651] to-[#0054A6]">Team</span>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
+          Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD400] via-[#0054A6] to-[#00A651]">Team</span>
         </h1>
         <p className="text-lg text-slate-400 max-w-2xl mx-auto">
           Established credibility through proven expertise and hands-on leadership

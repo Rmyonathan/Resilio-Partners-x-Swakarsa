@@ -3,292 +3,44 @@
 import { motion } from "framer-motion";
 import { memo } from "react";
 
-// Brand Colors
-const COLORS = {
-  green: "#00A651",
-  blue: "#0054A6",
-  yellow: "#FFD400",
-};
-
-// Orbit Configuration
-const ORBITS = [
-  {
-    radiusX: 280,
-    radiusY: 180,
-    rotation: 0,
-    color: COLORS.green,
-    duration: 24,
-    electrons: 4,
-  },
-  {
-    radiusX: 320,
-    radiusY: 200,
-    rotation: 60,
-    color: COLORS.blue,
-    duration: 28,
-    electrons: 5,
-  },
-  {
-    radiusX: 360,
-    radiusY: 220,
-    rotation: 120,
-    color: COLORS.yellow,
-    duration: 32,
-    electrons: 6,
-  },
-];
-
-const centerX = 500;
-const centerY = 500;
-
-// SVG Filter Definitions
-const GlowFilters = memo(() => (
-  <defs>
-    <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    
-    <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="7" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    
-    <filter id="glow-yellow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6.5" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    
-    <filter id="glow-nucleus" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="10" result="coloredBlur" />
-      <feMerge>
-        <feMergeNode in="coloredBlur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    
-    <radialGradient id="nucleusGradient" cx="50%" cy="50%">
-      <stop offset="0%" stopColor="rgba(255, 255, 255, 0.9)" />
-      <stop offset="50%" stopColor="rgba(0, 84, 166, 0.6)" />
-      <stop offset="100%" stopColor="rgba(0, 84, 166, 0.2)" />
-    </radialGradient>
-  </defs>
-));
-
-GlowFilters.displayName = "GlowFilters";
-
-// Nucleus Component
-const Nucleus = memo(() => (
-  <g>
-    <motion.circle
-      cx={centerX}
-      cy={centerY}
-      r="32"
-      fill="none"
-      stroke="rgba(255, 255, 255, 0.7)"
-      strokeWidth="3"
-      opacity={0.8}
-      filter="url(#glow-nucleus)"
-      animate={{
-        scale: [1, 1.15, 1],
-        opacity: [0.7, 0.9, 0.7],
-      }}
-      transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-    
-    <motion.circle
-      cx={centerX}
-      cy={centerY}
-      r="20"
-      fill="url(#nucleusGradient)"
-      filter="url(#glow-nucleus)"
-      animate={{
-        scale: [1, 1.08, 1],
-        opacity: [0.98, 1, 0.98],
-      }}
-      transition={{
-        duration: 2.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-    
-    <circle
-      cx={centerX}
-      cy={centerY}
-      r="12"
-      fill="rgba(255, 255, 255, 1)"
-      filter="url(#glow-nucleus)"
-    />
-  </g>
-));
-
-Nucleus.displayName = "Nucleus";
-
-// Electron Component - Pure SVG animation
-interface ElectronProps {
-  orbitIndex: number;
-  electronIndex: number;
-  orbit: typeof ORBITS[0];
-}
-
-const Electron = memo(({ orbitIndex, electronIndex, orbit }: ElectronProps) => {
-  const phaseOffset = (360 / orbit.electrons) * electronIndex;
-  const delay = electronIndex * 0.4;
-  
-  const getFilterId = () => {
-    if (orbit.color === COLORS.green) return "glow-green";
-    if (orbit.color === COLORS.blue) return "glow-blue";
-    return "glow-yellow";
-  };
-
-  // Create elliptical path for animateMotion (full ellipse using two arcs)
-  const pathId = `ellipse-path-${orbitIndex}-${electronIndex}`;
-  const startX = centerX;
-  const startY = centerY - orbit.radiusY;
-
-  return (
-    <g transform={`rotate(${orbit.rotation} ${centerX} ${centerY})`}>
-      {/* Elliptical path definition - full ellipse */}
-      <path
-        id={pathId}
-        d={`M ${startX} ${startY} A ${orbit.radiusX} ${orbit.radiusY} 0 1 1 ${startX} ${startY + orbit.radiusY * 2} A ${orbit.radiusX} ${orbit.radiusY} 0 1 1 ${startX} ${startY} Z`}
-        fill="none"
-        stroke="none"
-        opacity="0"
-      />
-      
-      {/* Main Electron */}
-      <circle r="10" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="1">
-        <animateMotion
-          dur={`${orbit.duration}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-        >
-          <mpath href={`#${pathId}`} />
-        </animateMotion>
-        <animate
-          attributeName="r"
-          values="9;11;9"
-          dur={`${2 + electronIndex * 0.2}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-        />
-        <animate
-          attributeName="opacity"
-          values="0.95;1;0.95"
-          dur={`${1.5 + electronIndex * 0.15}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-        />
-      </circle>
-      
-      {/* Trail Glow */}
-      <circle r="20" fill={orbit.color} filter={`url(#${getFilterId()})`} opacity="0.5">
-        <animateMotion
-          dur={`${orbit.duration}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-        >
-          <mpath href={`#${pathId}`} />
-        </animateMotion>
-        <animate
-          attributeName="opacity"
-          values="0.3;0.6;0.3"
-          dur={`${1.5 + electronIndex * 0.15}s`}
-          repeatCount="indefinite"
-          begin={`${delay}s`}
-        />
-      </circle>
-    </g>
-  );
-});
-
-Electron.displayName = "Electron";
-
-// Orbit Path Component
-interface OrbitPathProps {
-  orbit: typeof ORBITS[0];
-  index: number;
-}
-
-const OrbitPath = memo(({ orbit, index }: OrbitPathProps) => {
-  const getFilterId = () => {
-    if (orbit.color === COLORS.green) return "glow-green";
-    if (orbit.color === COLORS.blue) return "glow-blue";
-    return "glow-yellow";
-  };
-
-  return (
-    <ellipse
-      cx={centerX}
-      cy={centerY}
-      rx={orbit.radiusX}
-      ry={orbit.radiusY}
-      fill="none"
-      stroke={orbit.color}
-      strokeWidth="2.5"
-      strokeDasharray="10 8"
-      opacity="0.6"
-      transform={`rotate(${orbit.rotation} ${centerX} ${centerY})`}
-      filter={`url(#${getFilterId()})`}
-      style={{
-        transformOrigin: `${centerX}px ${centerY}px`,
-      }}
-    />
-  );
-});
-
-OrbitPath.displayName = "OrbitPath";
-
-// Main Component
+// Main Component - White gradient to blue and gray background
 export default function AtomBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
-      <svg
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="xMidYMid meet"
-        style={{
-          width: "150vw",
-          height: "150vh",
-          minWidth: "1200px",
-          minHeight: "1200px",
-          overflow: "visible",
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50 to-gray-100" />
+      
+      {/* Subtle animated gradient overlay */}
+      <motion.div
+        animate={{
+          opacity: [0.3, 0.5, 0.3],
+          scale: [1, 1.1, 1],
         }}
-      >
-        <GlowFilters />
-
-        {ORBITS.map((orbit, index) => (
-          <OrbitPath key={`orbit-${index}`} orbit={orbit} index={index} />
-        ))}
-
-        {ORBITS.map((orbit, orbitIndex) =>
-          Array.from({ length: orbit.electrons }).map((_, electronIndex) => (
-            <Electron
-              key={`electron-${orbitIndex}-${electronIndex}`}
-              orbitIndex={orbitIndex}
-              electronIndex={electronIndex}
-              orbit={orbit}
-            />
-          ))
-        )}
-
-        <Nucleus />
-      </svg>
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-100/50 via-transparent to-gray-200/50"
+        style={{ willChange: "transform, opacity" }}
+      />
+      
+      {/* Additional subtle animation layer */}
+      <motion.div
+        animate={{
+          opacity: [0.2, 0.4, 0.2],
+          scale: [1.1, 1, 1.1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl"
+        style={{ 
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(147, 197, 253, 0.2) 50%, transparent 100%)',
+          willChange: "transform, opacity" 
+        }}
+      />
     </div>
   );
 }
