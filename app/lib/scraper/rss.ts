@@ -32,7 +32,7 @@ export async function fetchRSSJobs(maxJobs: number = 6): Promise<RSSJob[]> {
       return [];
     }
 
-    const jobs: RSSJob[] = feed.items.slice(0, maxJobs).map((item) => {
+    const jobs: RSSJob[] = feed.items.slice(0, maxJobs).map((item: any) => {
       // WeWorkRemotely titles are usually "Company: Job Title"
       const titleParts = item.title?.split(':') || [];
       let company = 'Unknown Company';
