@@ -64,8 +64,8 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20"
           >
             <a 
-              href="https://calendly.com/resilio-partners/discovery" 
-              target="_blank" 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=jirwin@resilio-partners.com&su=Discovery Call Booking Request&body=Hi Jon,%0D%0A%0D%0AI would like to schedule a discovery call to discuss my business needs.%0D%0A%0D%0APlease let me know your available times.%0D%0A%0D%0AThank you!"
+              target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
             >

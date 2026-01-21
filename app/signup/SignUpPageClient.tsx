@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
+import SignUpForm from "@/app/components/platform/SignUpForm";
 
 export default function SignUpPageClient() {
   const [emailAnimation, setEmailAnimation] = useState<any>(null);
@@ -70,12 +71,9 @@ export default function SignUpPageClient() {
             <p className="text-slate-600 mt-2">Create your account to get started.</p>
           </div>
 
-          {/* Sign Up Form - Placeholder for now */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-md">
-            <p className="text-slate-600 text-sm text-center">
-              Account creation is currently managed by administrators. 
-              Please contact admin or apply through our partner program.
-            </p>
+          {/* Sign Up Form */}
+          <div className="bg-white border border-slate-200 rounded-xl p-6 md:p-8 shadow-md">
+            <SignUpForm />
           </div>
 
           <div className="pt-6 text-center border-t border-slate-300">

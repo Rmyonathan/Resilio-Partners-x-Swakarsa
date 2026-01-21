@@ -35,7 +35,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const statusLabel = statusConfig[application.status]?.label || application.status;
 
   return (
-    <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-6 min-h-screen bg-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <Link

@@ -13,12 +13,19 @@ export async function fetchRSSJobs(maxJobs: number = 6): Promise<RSSJob[]> {
   const parser = new Parser({
     customFields: {
       item: ['contentSnippet', 'content', 'guid']
-    }
+    },
+    timeout: 5000, // 5 second timeout
   });
 
   try {
     // WeWorkRemotely Feed (Programming/Remote Jobs)
-    const feed = await parser.parseURL('https://weworkremotely.com/categories/remote-programming-jobs.rss');
+    // Add timeout wrapper for extra safety
+    const feedPromise = parser.parseURL('https://weworkremotely.com/categories/remote-programming-jobs.rss');
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('RSS feed timeout')), 8000)
+    );
+    
+    const feed = await Promise.race([feedPromise, timeoutPromise]) as any;
 
     if (!feed.items || feed.items.length === 0) {
       console.warn('RSS feed returned no items');
@@ -70,9 +77,13 @@ export async function fetchRSSJobs(maxJobs: number = 6): Promise<RSSJob[]> {
     });
 
     return jobs;
-  } catch (error) {
-    console.error('RSS Feed Error:', error);
-    return []; // Return empty to trigger fallback in actions.ts
+  } catch (error: any) {
+    // Silently handle RSS errors - don't break the page
+    // Only log in development
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('RSS Feed Error (non-blocking):', error?.message || error);
+    }
+    return []; // Return empty array - page will show Arise job only
   }
 }
 

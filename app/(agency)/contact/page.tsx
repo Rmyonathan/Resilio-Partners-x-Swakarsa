@@ -132,12 +132,22 @@ export default function ContactPage() {
               <p className="text-slate-600 leading-relaxed mb-6">
                 Our OneClick Smart Resume tool revolutionizes your job search with AI-powered resume optimization, intelligent skill matching, and personalized job recommendations.
               </p>
-              <a
-                href="/jobs"
-                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-              >
-                Transform your job hunt →
-              </a>
+              <div className="flex flex-col gap-3">
+                <a
+                  href="https://oneclicksmartresume.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+                >
+                  Try OneClick Smart Resume →
+                </a>
+                <a
+                  href="/jobs"
+                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                >
+                  View Job Opportunities →
+                </a>
+              </div>
             </motion.div>
           </div>
 

@@ -43,7 +43,7 @@ export default function ContactCTA() {
                 </Link>
                 
                 <a
-                  href="https://calendly.com/resilio-partners/discovery"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=jirwin@resilio-partners.com&su=Discovery Call Booking Request&body=Hi Jon,%0D%0A%0D%0AI would like to schedule a discovery call to discuss my business needs.%0D%0A%0D%0APlease let me know your available times.%0D%0A%0D%0AThank you!"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3 border border-slate-300 hover:border-blue-500 text-slate-700 font-bold px-8 py-4 rounded-xl transition-all duration-300 w-full sm:w-auto justify-center"

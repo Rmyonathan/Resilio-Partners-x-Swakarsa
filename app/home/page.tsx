@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 // Importing Lucide icons
 import { 
   Mail, Phone, Globe, Menu, X, ChevronRight, ExternalLink, ArrowRight, 
-  Code, Cpu, Layers, Sparkles, ChevronDown 
+  Code, Cpu, Layers, Sparkles, ChevronDown, FileText 
 } from "lucide-react";
 import { useState, useEffect, useRef, memo } from "react";
 
@@ -1517,6 +1517,52 @@ export default function LandingPage() {
 
       {/* ================= CLIENT LOGOS ================= */}
       <ClientLogosSection isDark={isDark} logos={clientLogos} />
+
+      {/* ================= ONECLICK SMART RESUME ================= */}
+      <section className={`container mx-auto px-4 sm:px-6 py-20 sm:py-32 ${isDark ? "bg-slate-900" : "bg-white"}`}>
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className={`rounded-3xl p-8 md:p-12 shadow-xl border
+              ${isDark 
+                ? "bg-gradient-to-r from-purple-900/50 to-blue-900/50 border-purple-700/50" 
+                : "bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200"
+              }`}
+          >
+            <div className="flex flex-col md:flex-row items-start gap-6">
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0
+                ${isDark ? "bg-purple-800/50" : "bg-purple-100"}`}>
+                <Sparkles className={`${isDark ? "text-purple-300" : "text-purple-600"}`} size={32} />
+              </div>
+              <div className="flex-1">
+                <h3 className={`text-3xl font-bold mb-4 ${isDark ? "text-purple-300" : "text-purple-700"}`}>
+                  Boost Your Job Search with OneClick Smart Resume
+                </h3>
+                <p className={`mb-6 leading-relaxed text-lg ${isDark ? "text-slate-300" : "text-gray-700"}`}>
+                  Looking for more opportunities? Use <strong className={isDark ? "text-purple-300" : "text-purple-700"}>OneClick Smart Resume</strong> to optimize your resume with AI, match your skills to jobs, and get personalized job recommendations. Our AI-powered platform helps you stand out and find the perfect role.
+                </p>
+                <a 
+                  href="https://oneclicksmartresume.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg
+                    ${isDark 
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white" 
+                      : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+                    }`}
+                >
+                  <FileText size={20} />
+                  Try OneClick Smart Resume
+                  <ExternalLink size={18} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ================= CTA & FOOTER ================= */}
       <footer className={`relative pt-24 pb-12 overflow-hidden

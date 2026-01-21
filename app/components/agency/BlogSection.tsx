@@ -55,20 +55,18 @@ export default async function BlogSection() {
                 className="group block cursor-pointer bg-white border border-slate-200 hover:border-blue-500 rounded-2xl overflow-hidden transition-all duration-300 shadow-md hover:shadow-xl"
               >
                 {/* Cover Image */}
-                {post.cover_image_url && (
-                  <div className="h-35 relative overflow-hidden bg-slate-100">
-                    <img
-                      src={post.cover_image_url || "/assets/story-placeholder.jpg"}
-                      alt={post.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
-                    />
-                    
-                    {/* Source Badge */}
-                    <div className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full bg-blue-600 text-white">
-                      {post.source}
-                    </div>
+                <div className="h-35 relative overflow-hidden bg-slate-100">
+                  <img
+                    src={post.cover_image_url || post.coverImageUrl || "/assets/story-placeholder.jpg"}
+                    alt={post.title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                  />
+                  
+                  {/* Source Badge */}
+                  <div className="absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full bg-blue-600 text-white">
+                    {post.source}
                   </div>
-                )}
+                </div>
                 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">

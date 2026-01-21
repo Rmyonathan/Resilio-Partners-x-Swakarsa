@@ -13,7 +13,7 @@ export default async function CuratedJobsPage() {
   const jobs = await getAllCuratedJobs();
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6 min-h-screen bg-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-200">
         <div>

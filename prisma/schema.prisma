@@ -12,12 +12,12 @@ datasource db {
 // ==========================================
 
 model TeamMember {
-  id          String   @id @default(cuid())
+  id          String @id @default(cuid())
   name        String
   role        String
   image       String
-  description String   @db.Text
-  order       Int      @default(0)
+  description String @db.Text
+  order       Int    @default(0)
 }
 
 model Skill {
@@ -43,7 +43,7 @@ model PortfolioProject {
   duration         String
   challenges       String[]
   solutions        String[]
-  results          Json     // Array object {value, label}
+  results          Json // Array object {value, label}
   techStack        String[]
   createdAt        DateTime @default(now())
 }
@@ -62,12 +62,12 @@ model JobApplication {
   fullName       String
   email          String
   phone          String
-  location       String            // City, State format
+  location       String // City, State format
   hasWorkspace   Boolean
   experience     String?           @db.Text // Optional customer service experience
-  referralSource String?           // How did you hear about us: LinkedIn, Workshop, Website, Referral, Other
-  jobAppliedFor  String?           // Track which job: "Arise" or CuratedJob jobTitle
-  curatedJobId   String?           // Optional: link to CuratedJob if applying to curated job
+  referralSource String? // How did you hear about us: LinkedIn, Workshop, Website, Referral, Other
+  jobAppliedFor  String? // Track which job: "Arise" or CuratedJob jobTitle
+  curatedJobId   String? // Optional: link to CuratedJob if applying to curated job
   curatedJob     CuratedJob?       @relation(fields: [curatedJobId], references: [id])
   status         ApplicationStatus @default(NEW)
   notes          String?           @db.Text // Internal notes from admin
@@ -76,15 +76,15 @@ model JobApplication {
 }
 
 model CuratedJob {
-  id          String   @id @default(cuid())
-  jobTitle    String
-  companyName String
-  description String   @db.Text
-  salaryRange String?  // Optional, e.g. '$50K-$75K'
-  applyUrl    String   // External link to application (for direct external applications)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String           @id @default(cuid())
+  jobTitle     String
+  companyName  String
+  description  String           @db.Text
+  salaryRange  String? // Optional, e.g. '$50K-$75K'
+  applyUrl     String // External link to application (for direct external applications)
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
   applications JobApplication[] // Applications submitted through our form
 }
 
@@ -95,6 +95,41 @@ model ContactMessage {
   message   String   @db.Text
   status    String   @default("UNREAD")
   createdAt DateTime @default(now())
+}
+
+model PreMeetingAnswer {
+  id              String   @id @default(cuid())
+  firstName       String   @map("first_name")
+  lastName        String   @map("last_name")
+  email           String
+  phone           String?
+  hasBeenLooking  String?  @map("has_been_looking")
+  interest        String?  @db.Text
+  targetIncome    String?  @map("target_income") @db.Text
+  creditScore     String?  @map("credit_score")
+  status          String   @default("UNREAD")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("pre_meeting_answers")
+}
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  title         String
+  excerpt       String?   @db.Text
+  content       String?   @db.Text
+  coverImageUrl String?   @map("cover_image_url")
+  status        String    @default("draft")
+  publishedAt   DateTime? @map("published_at")
+  source        String?   @default("Resilio")
+  externalLink  String?   @map("external_link")
+  authorId      String?   @map("author_id")
+  author        User?     @relation("BlogAuthor", fields: [authorId], references: [id])
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
 }
 
 // ==========================================
@@ -108,41 +143,44 @@ enum Role {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  password      String?
-  role          Role      @default(CLIENT)
-  image         String?
-  
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
+  id       String  @id @default(cuid())
+  name     String?
+  email    String? @unique
+  password String?
+  role     Role    @default(CLIENT)
+  image    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // --- RELATIONS ---
-  
+
   // 1. Profil Konsultan (RPG Stats)
-  heroProfile   HeroProfile?
-  
+  heroProfile HeroProfile?
+
   // 2. Project yang DIBUAT oleh Client ini (The Lab)
   clientProjects ClientProject[] @relation("ClientOwner")
-  
+
   // 3. Project dimana User ini menjadi ANGGOTA TIM (The Guild)
   consultantProjects ProjectMember[] @relation("ConsultantMember")
+
+  // 4. Blog posts authored by this user
+  blogPosts BlogPost[] @relation("BlogAuthor")
 
   // (Optional: Future "Quest" system bisa ditambahkan nanti disini)
 }
 
 model HeroProfile {
-  id            String  @id @default(cuid())
-  userId        String  @unique
-  user          User    @relation(fields: [userId], references: [id])
-  
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
   nickname      String
-  tier          String  @default("BRONZE")
-  statSpeed     Int     @default(5)
-  statLogic     Int     @default(5)
-  statAesthetic Int     @default(5)
-  xp            Int     @default(0)
+  tier          String @default("BRONZE")
+  statSpeed     Int    @default(5)
+  statLogic     Int    @default(5)
+  statAesthetic Int    @default(5)
+  xp            Int    @default(0)
 }
 
 // ==========================================
@@ -151,35 +189,35 @@ model HeroProfile {
 
 // Project yang dibuat oleh Client via Drag & Drop
 model ClientProject {
-  id          String   @id @default(cuid())
+  id          String  @id @default(cuid())
   name        String
   description String?
-  status      String   @default("DRAFT") // DRAFT, NEGOTIATION, ACTIVE, COMPLETED
-  totalRate   Int      // Estimasi biaya per bulan
-  
+  status      String  @default("DRAFT") // DRAFT, NEGOTIATION, ACTIVE, COMPLETED
+  totalRate   Int // Estimasi biaya per bulan
+
   // Pemilik (Client)
-  clientId    String
-  client      User     @relation("ClientOwner", fields: [clientId], references: [id])
-  
+  clientId String
+  client   User   @relation("ClientOwner", fields: [clientId], references: [id])
+
   // Anggota Tim (Konsultan)
-  members     ProjectMember[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  members ProjectMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Tabel Hubung (Many-to-Many) antara Project dan Konsultan
 model ProjectMember {
-  id        String        @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Link ke Project
   projectId String
   project   ClientProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  
+
   // Link ke Konsultan (Hero)
-  heroId    String
-  hero      User          @relation("ConsultantMember", fields: [heroId], references: [id])
-  
-  role      String?       // Role spesifik di project ini (misal: "Lead Frontend")
-  joinedAt  DateTime      @default(now())
+  heroId String
+  hero   User   @relation("ConsultantMember", fields: [heroId], references: [id])
+
+  role     String? // Role spesifik di project ini (misal: "Lead Frontend")
+  joinedAt DateTime @default(now())
 }

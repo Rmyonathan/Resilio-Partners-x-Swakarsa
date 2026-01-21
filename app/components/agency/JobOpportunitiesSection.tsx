@@ -1,4 +1,4 @@
-import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Home, Clock, Users, Check } from "lucide-react";
+import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Home, Clock, Users, Check, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { fetchSimplyHiredJobs } from "@/app/lib/actions";
 import WaveLinesAnimation from "./WaveLinesAnimation";
@@ -173,6 +173,33 @@ export default async function JobOpportunitiesSection() {
             <span>View All Opportunities</span>
             <ExternalLink className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" />
           </Link>
+        </div>
+
+        {/* OneClick Smart Resume CTA */}
+        <div className="mt-8 mb-0">
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-6 md:p-8 border border-purple-200">
+            <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="text-purple-600" size={24} />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-purple-700">Boost Your Job Search</h3>
+                <p className="text-gray-700 mb-4 leading-relaxed">
+                  Looking for more opportunities? Use <strong className="text-purple-700">OneClick Smart Resume</strong> to optimize your resume with AI, match your skills to jobs, and get personalized job recommendations.
+                </p>
+                <a 
+                  href="https://oneclicksmartresume.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md"
+                >
+                  <FileText size={18} />
+                  Try OneClick Smart Resume
+                  <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ export default async function BlogPage() {
       <FlowingBackground />
       
       {/* Header */}
-      <section className="pt-32 pb-12 container mx-auto px-6 text-center relative z-10">
+      <section className="pt-32 pb-6 container mx-auto px-6 text-center relative z-10">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-blue-700">
           Latest Insights
         </h1>
@@ -39,7 +39,7 @@ export default async function BlogPage() {
       </section>
 
       {/* Blog Posts */}
-      <section className="py-16 pb-24 relative z-10">
+      <section className="pt-8 pb-24 relative z-10">
         <div className="container mx-auto px-6 max-w-6xl">
           {posts.length === 0 ? (
             <div className="text-center py-24">

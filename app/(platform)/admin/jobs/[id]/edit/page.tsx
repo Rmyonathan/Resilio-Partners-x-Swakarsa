@@ -24,7 +24,7 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6 min-h-screen bg-white">
       {/* Navigation */}
       <div className="flex items-center gap-4">
         <Link

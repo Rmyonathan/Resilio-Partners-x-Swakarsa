@@ -200,14 +200,23 @@ export async function submitJobApplication(formData: FormData) {
       }
     });
 
-    if (resend) {
-      await resend.emails.send({
-        from: 'Swakarsa Careers <jobs@swakarsadigital.com>',
-        to: 'swakarsadigital@gmail.com',
-        subject: `Pelamar Baru Arise: ${rawData.fullName}`,
-        html: `<h3>Lamaran Kerja Baru</h3><p><strong>Nama:</strong> ${rawData.fullName}</p><p><strong>Email:</strong> ${rawData.email}</p><p><strong>Lokasi:</strong> ${rawData.location}</p>`
-      });
-    }
+    // Send notification email to Jon
+    await sendEmail({
+      to: 'jirwin@resilio-partners.com',
+      subject: `New Job Application: ${rawData.fullName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #4f46e5;">New Job Application</h2>
+          <p><strong>Name:</strong> ${rawData.fullName}</p>
+          <p><strong>Email:</strong> ${rawData.email}</p>
+          <p><strong>Phone:</strong> ${rawData.phone || 'Not provided'}</p>
+          <p><strong>Location:</strong> ${rawData.location || 'Not provided'}</p>
+          <p><strong>Has Workspace:</strong> ${rawData.hasWorkspace ? 'Yes' : 'No'}</p>
+          <p><strong>Experience:</strong> ${rawData.experience || 'Not provided'}</p>
+          <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
+        </div>
+      `
+    });
 
     return { success: true, message: "Lamaran berhasil dikirim!" };
   } catch (error) {
@@ -316,14 +325,13 @@ export async function submitAriseApplication(formData: FormData) {
       });
       console.log('Confirmation email result:', emailResult1);
 
-      // Email 2: Notification email to admin (you)
+      // Email 2: Notification email to Jon
       const jobTitle = rawData.jobAppliedFor || 'Arise Platform';
-      const adminEmail = process.env.ADMIN_EMAIL || 'swakarsadigital@gmail.com';
-      console.log('Sending notification email to admin:', adminEmail);
+      console.log('Sending notification email to Jon');
       console.log('Gmail configured?', !!gmailTransporter);
       console.log('Resend configured?', !!resend);
       const emailResult2 = await sendEmail({
-        to: adminEmail,
+        to: 'jirwin@resilio-partners.com',
         subject: `New ${jobTitle} Agent Application Received: ${rawData.fullName}`,
         html: `
             <!DOCTYPE html>
@@ -402,11 +410,128 @@ export async function submitAriseApplication(formData: FormData) {
 // 3. ADMIN: DASHBOARD DATA & ACTIONS
 // ==========================================
 
-export async function getContactMessages() {
+export async function getContactMessages(filterStatus?: string) {
   try {
-    return await prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' } });
+    const where: any = {};
+    if (filterStatus && filterStatus !== 'ALL') {
+      where.status = filterStatus;
+    }
+    return await prisma.contactMessage.findMany({ 
+      where,
+      orderBy: { createdAt: 'desc' } 
+    });
   } catch (error) {
     return [];
+  }
+}
+
+export async function submitPreMeetingAnswers(formData: FormData) {
+  const rawData = {
+    firstName: formData.get('firstName') as string,
+    lastName: formData.get('lastName') as string,
+    email: formData.get('email') as string,
+    phone: formData.get('phone') as string,
+    hasBeenLooking: formData.get('hasBeenLooking') as string,
+    interest: formData.get('interest') as string,
+    targetIncome: formData.get('targetIncome') as string,
+    creditScore: formData.get('creditScore') as string,
+  }
+
+  if (!rawData.firstName || !rawData.lastName || !rawData.email) {
+    return { success: false, message: "First name, last name, and email are required." };
+  }
+
+  try {
+    await prisma.preMeetingAnswer.create({
+      data: {
+        firstName: rawData.firstName,
+        lastName: rawData.lastName,
+        email: rawData.email,
+        phone: rawData.phone || null,
+        hasBeenLooking: rawData.hasBeenLooking || null,
+        interest: rawData.interest || null,
+        targetIncome: rawData.targetIncome || null,
+        creditScore: rawData.creditScore || null,
+        status: "UNREAD"
+      }
+    });
+
+    // Send notification email to Jon
+    await sendEmail({
+      to: 'jirwin@resilio-partners.com',
+      subject: `New Pre-Meeting Answers: ${rawData.firstName} ${rawData.lastName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #4f46e5;">New Pre-Meeting Answers</h2>
+          <p><strong>Name:</strong> ${rawData.firstName} ${rawData.lastName}</p>
+          <p><strong>Email:</strong> ${rawData.email}</p>
+          <p><strong>Phone:</strong> ${rawData.phone || 'Not provided'}</p>
+          <p><strong>Have you been looking?</strong> ${rawData.hasBeenLooking || 'Not provided'}</p>
+          <p><strong>What interests you more?</strong> ${rawData.interest || 'Not provided'}</p>
+          <p><strong>Target annual Income:</strong> ${rawData.targetIncome || 'Not provided'}</p>
+          <p><strong>Credit Score:</strong> ${rawData.creditScore || 'Not provided'}</p>
+          <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
+        </div>
+      `
+    });
+    
+    return { success: true, message: "Thank you! We'll contact you soon to schedule your call." };
+  } catch (error) {
+    console.error("Pre-Meeting Answers Submit Error:", error);
+    return { success: false, message: "Failed to submit. Please try again later." };
+  }
+}
+
+export async function getPreMeetingAnswers(filterStatus?: string) {
+  try {
+    const where: any = {};
+    if (filterStatus && filterStatus !== 'ALL') {
+      where.status = filterStatus;
+    }
+    return await prisma.preMeetingAnswer.findMany({ 
+      where,
+      orderBy: { createdAt: 'desc' } 
+    });
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function updatePreMeetingAnswerStatus(answerId: string, status: string) {
+  const session = await auth();
+  const user = session?.user as any;
+  if (user?.role !== 'ADMIN') return { success: false, message: "Unauthorized" };
+
+  try {
+    await prisma.preMeetingAnswer.update({
+      where: { id: answerId },
+      data: { status }
+    });
+    revalidatePath('/admin/pre-meeting');
+    revalidatePath('/admin');
+    return { success: true };
+  } catch (error: any) {
+    console.error("Update Pre-Meeting Answer Error:", error);
+    return { success: false, message: error.message || "Failed to update answer status." };
+  }
+}
+
+export async function updateContactMessageStatus(messageId: string, status: string) {
+  const session = await auth();
+  const user = session?.user as any;
+  if (user?.role !== 'ADMIN') return { success: false, message: "Unauthorized" };
+
+  try {
+    await prisma.contactMessage.update({
+      where: { id: messageId },
+      data: { status }
+    });
+    revalidatePath('/admin/contact');
+    revalidatePath('/admin');
+    return { success: true };
+  } catch (error: any) {
+    console.error("Update Contact Message Error:", error);
+    return { success: false, message: error.message || "Failed to update message status." };
   }
 }
 
@@ -505,6 +630,159 @@ export async function getCuratedJobs() {
   } catch (error) {
     console.error("Error fetching curated jobs:", error);
     return [];
+  }
+}
+
+// ==========================================
+// BLOG MANAGEMENT - DATABASE POSTS
+// ==========================================
+
+export async function createBlogPost(formData: FormData) {
+  const session = await auth();
+  const user = session?.user as any;
+  if (user?.role !== 'ADMIN') return { success: false, message: "Unauthorized" };
+
+  try {
+    const title = formData.get('title') as string;
+    const excerpt = formData.get('excerpt') as string;
+    const content = formData.get('content') as string;
+    const coverImageFile = formData.get('cover_image') as File | null;
+    const status = formData.get('status') as string || 'draft';
+    const source = formData.get('source') as string || 'Resilio';
+    const externalLink = formData.get('external_link') as string || null;
+
+    if (!title) {
+      return { success: false, message: "Title is required." };
+    }
+
+    // Handle file upload
+    let coverImageUrl: string | null = null;
+    if (coverImageFile && coverImageFile.size > 0) {
+      const { saveUploadedFile } = await import('./upload-utils');
+      coverImageUrl = await saveUploadedFile(coverImageFile, 'blog');
+    }
+
+    // Generate slug from title
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
+    // Check if slug already exists
+    const existing = await prisma.blogPost.findUnique({
+      where: { slug }
+    });
+
+    let finalSlug = slug;
+    if (existing) {
+      finalSlug = `${slug}-${Date.now()}`;
+    }
+
+    const blogData: any = {
+      title,
+      slug: finalSlug,
+      excerpt: excerpt || null,
+      content: content || null,
+      coverImageUrl: coverImageUrl || null,
+      status,
+      source,
+      externalLink: externalLink || null,
+      authorId: user.id,
+    };
+
+    if (status === 'published') {
+      blogData.publishedAt = new Date();
+    }
+
+    await prisma.blogPost.create({
+      data: blogData
+    });
+    
+    revalidatePath('/blog');
+    revalidatePath('/admin/blogs');
+    return { success: true };
+  } catch (error: any) {
+    console.error("Create Blog Error:", error);
+    return { success: false, message: error.message || "Failed to create blog post." };
+  }
+}
+
+export async function updateBlogPost(formData: FormData) {
+  const session = await auth();
+  const user = session?.user as any;
+  if (user?.role !== 'ADMIN') return { success: false, message: "Unauthorized" };
+
+  try {
+    const id = formData.get('id') as string;
+    const title = formData.get('title') as string;
+    const excerpt = formData.get('excerpt') as string;
+    const content = formData.get('content') as string;
+    const coverImageFile = formData.get('cover_image') as File | null;
+    const status = formData.get('status') as string || 'draft';
+    const source = formData.get('source') as string || 'Resilio';
+    const externalLink = formData.get('external_link') as string || null;
+
+    if (!title) {
+      return { success: false, message: "Title is required." };
+    }
+
+    // Handle file upload (only if new file is provided)
+    let coverImageUrl: string | undefined = undefined;
+    if (coverImageFile && coverImageFile.size > 0) {
+      const { saveUploadedFile } = await import('./upload-utils');
+      coverImageUrl = await saveUploadedFile(coverImageFile, 'blog');
+    }
+
+    const blogData: any = {
+      title,
+      excerpt: excerpt || null,
+      content: content || null,
+      status,
+      source,
+      externalLink: externalLink || null,
+    };
+
+    if (coverImageUrl) {
+      blogData.coverImageUrl = coverImageUrl;
+    }
+
+    // Check existing post for publishedAt and slug
+    const existing = await prisma.blogPost.findUnique({ where: { id } });
+    
+    if (status === 'published' && !existing?.publishedAt) {
+      blogData.publishedAt = new Date();
+    }
+
+    await prisma.blogPost.update({
+      where: { id },
+      data: blogData
+    });
+    
+    revalidatePath('/blog');
+    revalidatePath('/admin/blogs');
+    if (existing?.slug) {
+      revalidatePath(`/blog/${existing.slug}`);
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Update Blog Error:", error);
+    return { success: false, message: error.message || "Failed to update blog post." };
+  }
+}
+
+export async function deleteBlogPost(id: string) {
+  const session = await auth();
+  const user = session?.user as any;
+  if (user?.role !== 'ADMIN') return { success: false, message: "Unauthorized" };
+
+  try {
+    await prisma.blogPost.delete({ where: { id } });
+    revalidatePath('/blog');
+    revalidatePath('/admin/blogs');
+    return { success: true };
+  } catch (error: any) {
+    console.error("Delete Blog Error:", error);
+    return { success: false, message: error.message || "Failed to delete blog post." };
   }
 }
 
@@ -619,13 +897,29 @@ const fallbackBlogPosts = [
 
 export async function getBlogPosts() {
   try {
+    // Fetch database blog posts using Prisma
+    const dbPosts = await prisma.blogPost.findMany({
+      where: { status: 'published' },
+      include: { author: true },
+      orderBy: { publishedAt: 'desc' }
+    });
+
     const [wixPosts, mediumPosts] = await Promise.all([
       fetchWixBlogs(),
       fetchMediumBlogs(),
     ]);
 
-    // Combine all posts
-    let allPosts: any[] = [];
+    // Combine all posts - database posts first, then RSS feeds
+    let allPosts: any[] = dbPosts.map(post => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      excerpt: post.excerpt || '',
+      cover_image_url: post.coverImageUrl || '/assets/story-placeholder.jpg',
+      published_at: post.publishedAt?.toISOString() || post.createdAt.toISOString(),
+      source: post.source || 'Resilio',
+      external_link: post.externalLink || null,
+    }));
     
     if (wixPosts && wixPosts.length > 0) allPosts.push(...wixPosts);
     if (mediumPosts && mediumPosts.length > 0) allPosts.push(...mediumPosts);
@@ -662,10 +956,13 @@ export async function fetchSimplyHiredJobs(
 ) {
   try {
     const jobs = await fetchRSSJobs(maxJobs);
-    return jobs;
-  } catch (error) {
-    console.error('Error fetching RSS jobs:', error);
-    return [];
+    return jobs || []; // Ensure we always return an array
+  } catch (error: any) {
+    // Silently handle errors - RSS feed failures shouldn't break the page
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Error fetching RSS jobs (non-blocking):', error?.message || error);
+    }
+    return []; // Return empty array on any error
   }
 }
 

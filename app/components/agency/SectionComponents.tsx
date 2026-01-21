@@ -143,8 +143,8 @@ export function Footer() {
                 <Phone className="w-5 h-5 text-slate-800 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-slate-700 text-sm">Phone</p>
-                  <a href="tel:+1234567890" className="text-slate-800 hover:text-slate-900 text-sm transition-colors">
-                    +1 (234) 567-890
+                  <a href="tel:248-496-8798" className="text-slate-800 hover:text-slate-900 text-sm transition-colors">
+                    248-496-8798
                   </a>
                 </div>
               </li>
@@ -153,8 +153,8 @@ export function Footer() {
                 <div>
                   <p className="text-slate-700 text-sm">Book a Call</p>
                   <a 
-                    href="https://calendly.com/resilio-partners/discovery" 
-                    target="_blank" 
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=jirwin@resilio-partners.com&su=Discovery Call Booking Request&body=Hi Jon,%0D%0A%0D%0AI would like to schedule a discovery call to discuss my business needs.%0D%0A%0D%0APlease let me know your available times.%0D%0A%0D%0AThank you!"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-800 hover:text-slate-900 text-sm transition-colors flex items-center gap-1"
                   >

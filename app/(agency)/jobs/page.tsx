@@ -3,7 +3,7 @@ import AriseJobForm from "../../components/agency/AriseJobForm";
 import CuratedJobForm from "../../components/agency/CuratedJobForm";
 import ScrapedJobsSection from "../../components/agency/ScrapedJobsSection";
 import { getCuratedJobs } from "../../lib/actions";
-import { Check, Home, DollarSign, Users, Briefcase, Clock, ExternalLink, MapPin, Building2 } from "lucide-react";
+import { Check, Home, DollarSign, Users, Briefcase, Clock, ExternalLink, MapPin, Building2, FileText, Sparkles } from "lucide-react";
 import BlobBackground from "../../components/agency/BlobBackground";
 import WaveBackground from "../../components/agency/WaveBackground";
 export const metadata = {
@@ -315,6 +315,35 @@ export default async function JobsPage() {
 
       {/* Section 5: RSS Feed Jobs (External Opportunities) */}
       <ScrapedJobsSection />
+
+      {/* Section 6: OneClick Smart Resume */}
+      <section className="py-16 pb-24 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-3xl p-8 md:p-12 border border-purple-200 shadow-lg">
+            <div className="flex flex-col md:flex-row items-start gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="text-purple-600" size={32} />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-3xl font-bold mb-4 text-purple-700">Boost Your Job Search with OneClick Smart Resume</h3>
+                <p className="text-gray-700 mb-6 leading-relaxed text-lg">
+                  Looking for more opportunities? Use <strong className="text-purple-700">OneClick Smart Resume</strong> to optimize your resume with AI, match your skills to jobs, and get personalized job recommendations. Our AI-powered platform helps you stand out and find the perfect role.
+                </p>
+                <a 
+                  href="https://oneclicksmartresume.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  <FileText size={20} />
+                  Try OneClick Smart Resume
+                  <ExternalLink size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </main>

@@ -2,6 +2,7 @@ import { Footer } from "../../components/agency/SectionComponents";
 import { Calendar, CheckCircle, DollarSign, Clock, HelpCircle } from "lucide-react";
 import Link from "next/link";
 import ProcessBackground from "../../components/agency/ProcessBackground";
+import PreMeetingForm from "../../components/agency/PreMeetingForm";
 export const metadata = {
   title: "Work With Us | Resilio Partners",
   description: "Book a discovery call, learn about our process, and get answers to frequently asked questions. No traditional pricing page—we scope every project personally.",
@@ -49,15 +50,9 @@ export default function WorkWithUsPage() {
                   <p className="text-lg text-slate-600 leading-relaxed mb-6">
                     Start with a free 30-minute discovery call. We'll discuss your business needs, goals, and challenges. This helps us understand if we're the right fit for your project.
                   </p>
-                  <a
-                    href="https://calendly.com/resilio-partners/discovery"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
-                  >
-                    <Calendar size={20} />
-                    Schedule Your Call
-                  </a>
+                  <div className="mt-6">
+                    <PreMeetingForm />
+                  </div>
                 </div>
               </div>
             </div>
@@ -187,7 +182,7 @@ export default function WorkWithUsPage() {
             </p>
             <br/>
             <a
-              href="https://calendly.com/resilio-partners/discovery"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=jirwin@resilio-partners.com&su=Discovery Call Booking Request&body=Hi Jon,%0D%0A%0D%0AI would like to schedule a discovery call to discuss my business needs.%0D%0A%0D%0APlease let me know your available times.%0D%0A%0D%0AThank you!"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"

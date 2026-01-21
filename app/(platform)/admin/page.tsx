@@ -2,7 +2,8 @@ import {
   getContactMessages, 
   getJobApplications, 
   getAllProjects, 
-  approveProject 
+  approveProject,
+  getPreMeetingAnswers
 } from "@/app/lib/actions";
 import { 
   Mail, 
@@ -13,7 +14,8 @@ import {
   CheckCircle, 
   XCircle,
   MapPin,
-  User 
+  User,
+  FileText
 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
@@ -45,14 +47,15 @@ async function handleApprove(formData: FormData) {
 
 export default async function AdminDashboard() {
   // Ambil semua data secara paralel untuk performa
-  const [messages, applicants, projects] = await Promise.all([
+  const [messages, applicants, projects, preMeetingAnswers] = await Promise.all([
     getContactMessages(),
     getJobApplications(),
-    getAllProjects()
+    getAllProjects(),
+    getPreMeetingAnswers()
   ]);
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6 min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6 min-h-screen bg-white">
       {/* --- HEADER --- */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-200">
         <div>
@@ -74,6 +77,13 @@ export default async function AdminDashboard() {
             <Briefcase size={16} />
             Manage Jobs
           </Link>
+          <Link
+            href="/admin/blogs"
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors text-sm flex items-center gap-2"
+          >
+            <FileText size={16} />
+            Manage Blogs
+          </Link>
         </div>
       </div>
 
@@ -81,7 +91,7 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Card 1: Messages */}
           <Link
-            href="/admin"
+            href="/admin/contact"
             className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-indigo-300 group"
           >
             <div className="flex items-center justify-between mb-4">
@@ -154,6 +164,28 @@ export default async function AdminDashboard() {
               Manage →
             </h3>
             <p className="text-xs text-slate-400 mt-2">Add/edit job listings</p>
+          </Link>
+
+          {/* Card 5: Pre-Meeting Answers */}
+          <Link
+            href="/admin/pre-meeting"
+            className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all hover:border-blue-300 group"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-200 transition-colors">
+                <Calendar size={24} />
+              </div>
+              <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                preMeetingAnswers.filter((a: any) => a.status === 'UNREAD').length > 0 
+                  ? 'bg-red-100 text-red-700' 
+                  : 'bg-slate-100 text-slate-500'
+              }`}>
+                {preMeetingAnswers.filter((a: any) => a.status === 'UNREAD').length} New
+              </span>
+            </div>
+            <p className="text-sm text-slate-500 font-medium mb-1">Pre-Meeting Answers</p>
+            <h3 className="text-2xl font-bold text-slate-800">{preMeetingAnswers.length}</h3>
+            <p className="text-xs text-slate-400 mt-2">View answers</p>
           </Link>
         </div>
 

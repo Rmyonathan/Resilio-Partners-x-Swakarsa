@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, LogIn, LayoutDashboard } from "lucide-react";
+import { Menu, X, LogIn, LayoutDashboard, LogOut } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import NavbarWaves from "../visuals/NavbarWaves";
 import ContactButtonAnimation from "./ContactButtonAnimation";
+import { logout } from "@/app/lib/auth-actions";
 
 interface NavbarProps {
   isLoggedIn?: boolean;
@@ -49,12 +50,12 @@ export default function Navbar({ isLoggedIn = false, userRole }: NavbarProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-4 px-4">
       <div className="container mx-auto max-w-7xl">
-        <div className={`w-full rounded-2xl px-6 py-3 transition-all duration-300 backdrop-blur-md border-b border-slate-200 flex justify-between items-center relative
+        <div className={`w-full rounded-2xl px-6 py-3 transition-all duration-300 backdrop-blur-md border-2 border-slate-300 flex justify-between items-center relative
           ${scrolled 
-            ? "bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 shadow-md" 
+            ? "bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 shadow-md border-slate-400" 
             : isDark 
-              ? "bg-blue-50/80" 
-              : "bg-blue-50/80 border-slate-200"
+              ? "bg-blue-50/80 border-slate-300" 
+              : "bg-blue-50/80 border-slate-300"
           }`}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -86,19 +87,36 @@ export default function Navbar({ isLoggedIn = false, userRole }: NavbarProps) {
                 ))}
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
                  {isLoggedIn ? (
-                   <Link 
-                     href={getDashboardLink()}
-                     className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 border ${
-                       isDark 
-                         ? "bg-transparent border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700" 
-                         : "bg-transparent border-indigo-300 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-400"
-                     }`}
-                   >
-                      <LayoutDashboard size={18} />
-                      Dashboard
-                   </Link>
+                   <>
+                     {userRole === 'ADMIN' && (
+                       <Link 
+                         href="/admin"
+                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 border ${
+                           isDark 
+                             ? "bg-transparent border-purple-600 text-purple-600 hover:bg-purple-50 hover:border-purple-700" 
+                             : "bg-transparent border-purple-300 text-purple-600 hover:bg-purple-50 hover:border-purple-400"
+                         }`}
+                       >
+                          <LayoutDashboard size={16} />
+                          Admin Dashboard
+                       </Link>
+                     )}
+                     <form action={logout}>
+                       <button
+                         type="submit"
+                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 border ${
+                           isDark 
+                             ? "bg-transparent border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700" 
+                             : "bg-transparent border-indigo-300 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-400"
+                         }`}
+                       >
+                          <LogOut size={16} />
+                          Logout
+                       </button>
+                     </form>
+                   </>
                  ) : (
                    <Link 
                      href="/login" 
@@ -167,18 +185,20 @@ export default function Navbar({ isLoggedIn = false, userRole }: NavbarProps) {
                   </Link>
               ))}
               {isLoggedIn ? (
-                <Link
-                  href={getDashboardLink()}
-                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-center transition-all duration-300 border ${
-                    isDark 
-                      ? "bg-transparent border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700" 
-                      : "bg-transparent border-indigo-300 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-400"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <LayoutDashboard size={18} />
-                  Dashboard
-                </Link>
+                <form action={logout}>
+                  <button
+                    type="submit"
+                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-semibold text-center transition-all duration-300 border w-full ${
+                      isDark 
+                        ? "bg-transparent border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700" 
+                        : "bg-transparent border-indigo-300 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-400"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <LogOut size={18} />
+                    Logout
+                  </button>
+                </form>
               ) : (
                 <Link
                   href="/login"
