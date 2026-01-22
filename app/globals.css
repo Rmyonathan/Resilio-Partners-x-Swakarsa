@@ -21,6 +21,13 @@
   --color-brand-blue: var(--resilio-blue);
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto; /* Allows the app to scroll inside the iframe */
+  scrollbar-width: thin; /* Makes scrollbar less obtrusive */
+}
+
 body {
   background: #ffffff;
   background-attachment: fixed;

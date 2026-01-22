@@ -62,4 +62,34 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       return session;
     },
   },
+  // === FIX FOR WIX IFRAME: Cookie Configuration ===
+  // Essential for cross-origin iframe embedding (Wix)
+  cookies: {
+    sessionToken: {
+      name: `__Secure-authjs.session-token`, // Must start with __Secure-
+      options: {
+        httpOnly: true,
+        sameSite: 'none', // Essential for iframes
+        path: '/',
+        secure: true, // Essential for iframes (requires HTTPS)
+      },
+    },
+    callbackUrl: {
+      name: `__Secure-authjs.callback-url`,
+      options: {
+        sameSite: 'none',
+        path: '/',
+        secure: true,
+      },
+    },
+    csrfToken: {
+      name: `__Host-authjs.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'none',
+        path: '/',
+        secure: true,
+      },
+    },
+  },
 });
