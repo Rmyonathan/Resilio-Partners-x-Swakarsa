@@ -6,20 +6,9 @@ const nextConfig: NextConfig = {
     'header-generator',
   ],
   // Allow Wix to embed this app in an iframe
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            // This allows wix.com to embed your site
-            value: "frame-ancestors 'self' https://*.wix.com https://*.wixstatic.com;",
-          },
-        ],
-      },
-    ];
-  },
+  // No CSP headers set = Next.js allows iframe embedding by default
+  // If you still see CSP errors after redeploy, check Vercel Dashboard:
+  // Settings > Security > Headers (disable any CSP or X-Frame-Options there)
 };
 
 export default nextConfig;
