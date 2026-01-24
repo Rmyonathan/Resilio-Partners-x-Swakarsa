@@ -1,7 +1,6 @@
 import { Footer } from "../../components/agency/SectionComponents";
 import AriseJobForm from "../../components/agency/AriseJobForm";
 import CuratedJobForm from "../../components/agency/CuratedJobForm";
-import ScrapedJobsSection from "../../components/agency/ScrapedJobsSection";
 import { getCuratedJobs } from "../../lib/actions";
 import { Check, Home, DollarSign, Users, Briefcase, Clock, ExternalLink, MapPin, Building2, FileText, Sparkles } from "lucide-react";
 import BlobBackground from "../../components/agency/BlobBackground";
@@ -313,10 +312,7 @@ export default async function JobsPage() {
         </section>
       )}
 
-      {/* Section 5: RSS Feed Jobs (External Opportunities) */}
-      <ScrapedJobsSection />
-
-      {/* Section 6: OneClick Smart Resume */}
+      {/* Section 5: OneClick Smart Resume */}
       <section className="py-16 pb-24 bg-white">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-3xl p-8 md:p-12 border border-purple-200 shadow-lg">

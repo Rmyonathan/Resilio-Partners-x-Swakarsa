@@ -1,6 +1,6 @@
 import { Building2, DollarSign, Briefcase, MapPin, ExternalLink, Home, Clock, Users, Check, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { fetchSimplyHiredJobs } from "@/app/lib/actions";
+import { getCuratedJobs } from "@/app/lib/actions";
 import WaveLinesAnimation from "./WaveLinesAnimation";
 
 export default async function JobOpportunitiesSection() {
@@ -21,23 +21,23 @@ export default async function JobOpportunitiesSection() {
     isArise: true,
   };
 
-  // Fetch 2 RSS jobs
-  const rssJobs = await fetchSimplyHiredJobs('developer', 'remote', 2);
+  // Fetch curated jobs from database (only active ones)
+  const curatedJobs = await getCuratedJobs();
   
-  // Map RSS jobs to opportunity format
-  const rssOpportunities = rssJobs.map((job) => ({
-    title: job.title,
-    company: job.company,
-    location: job.location,
-    salary: job.salary || "See Details",
+  // Map curated jobs to opportunity format
+  const curatedOpportunities = curatedJobs.slice(0, 2).map((job) => ({
+    title: job.jobTitle,
+    company: job.companyName,
+    location: "Remote",
+    salary: job.salaryRange || "See Details",
     description: job.description || "Remote opportunity available. Click to view full details.",
-    jobUrl: job.jobUrl || "#",
+    jobUrl: `/jobs#apply-${job.id}`,
     isArise: false,
-    benefits: undefined as any, // RSS jobs don't have benefits
+    benefits: undefined as any, // Curated jobs don't have benefits in this format
   }));
 
-  // Combine: Arise first, then RSS jobs
-  const opportunities = [ariseOpportunity, ...rssOpportunities].slice(0, 3);
+  // Combine: Arise first, then curated jobs (max 3 total)
+  const opportunities = [ariseOpportunity, ...curatedOpportunities].slice(0, 3);
 
   return (
     <section className="py-24 relative z-10 overflow-hidden w-full">
