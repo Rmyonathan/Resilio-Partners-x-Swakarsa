@@ -53,6 +53,16 @@ function AuthCallbackContent() {
           throw new Error(result?.message || 'Login failed');
         }
       } catch (error: any) {
+        // NEXT_REDIRECT is expected when the server action triggers a redirect.
+        // Don't show/log it as an error.
+        if (
+          error?.digest &&
+          typeof error.digest === 'string' &&
+          error.digest.startsWith('NEXT_REDIRECT')
+        ) {
+          return;
+        }
+
         console.error('Auth callback error:', error);
         setStatus(`Authentication Failed: ${error.message}`);
         // Opsional: Redirect ke halaman error setelah beberapa detik
