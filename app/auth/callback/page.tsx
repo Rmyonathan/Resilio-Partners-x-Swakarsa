@@ -39,7 +39,7 @@ function AuthCallbackContent() {
           return;
         }
 
-        setStatus('Syncing with Swakarsa Database...');
+        setStatus('Syncing with database...');
 
         // 4. Panggil Server Action untuk Login/Register ke Database & NextAuth.
         //    Server action ini akan memanggil signIn() yang melakukan redirect ke /lab.
