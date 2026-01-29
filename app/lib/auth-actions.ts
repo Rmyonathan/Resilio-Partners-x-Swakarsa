@@ -160,20 +160,14 @@ export async function loginWithWix(wixUser: any) {
 
     console.log('✅ User synced to DB:', user.id);
 
-    // Tentukan tujuan redirect setelah login via Wix.
-    // - Di production: ke domain utama https://www.resilio-partners.com/
-    // - Di development: gunakan root path '/' (http://localhost:3000/)
-    const redirectTarget =
-      process.env.NODE_ENV === 'production'
-        ? 'https://www.resilio-partners.com/'
-        : '/';
-
     // Eksekusi Login NextAuth
     // Mengirim flag khusus 'wixLogin' agar auth.ts tahu ini login bypass password
     await signIn('credentials', {
       email: wixUser.email,
       wixLogin: 'true',
-      redirectTo: redirectTarget,
+      // Selalu redirect ke home Next.js pada origin yang sama dengan callback.
+      // (Kalau nanti Anda map custom domain ke Vercel, ini otomatis ikut domain tersebut.)
+      redirectTo: '/',
     });
 
     // Jika signIn sukses, eksekusi biasanya tidak akan sampai ke sini karena terjadi redirect.
