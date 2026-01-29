@@ -9,6 +9,7 @@ import Lottie from "lottie-react";
 export default function LoginPageClient() {
   const [atomicMotionAnimation, setAtomicMotionAnimation] = useState<any>(null);
   const [createAccountAnimation, setCreateAccountAnimation] = useState<any>(null);
+  const wixLoginUrl = process.env.NEXT_PUBLIC_WIX_LOGIN_URL ?? "";
 
   useEffect(() => {
     // Load Atomic Motion animation
@@ -99,8 +100,39 @@ export default function LoginPageClient() {
             <p className="text-slate-600 mt-2">Sign in to your dashboard.</p>
           </div>
 
-          {/* PANGGIL KOMPONEN FORM DISINI */}
+          {/* Email / Password Login */}
           <LoginForm />
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-4">
+            <div className="h-px flex-1 bg-slate-300" />
+            <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">
+              or
+            </span>
+            <div className="h-px flex-1 bg-slate-300" />
+          </div>
+
+          {/* Login via Wix */}
+          <button
+            type="button"
+            onClick={() => {
+              if (!wixLoginUrl) {
+                console.error("Wix login URL is not configured (NEXT_PUBLIC_WIX_LOGIN_URL).");
+                return;
+              }
+              window.location.href = wixLoginUrl;
+            }}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-white text-blue-700 border border-blue-200 py-3 px-4 text-sm font-semibold shadow-sm hover:bg-blue-50 hover:border-blue-300 transition-colors"
+          >
+            <span className="inline-block h-5 w-5 rounded-sm bg-blue-500 text-white text-xs flex items-center justify-center font-bold">
+              W
+            </span>
+            <span>Continue with Wix</span>
+          </button>
+
+          <p className="text-[11px] text-slate-500 text-center mt-2">
+            You&apos;ll be redirected to our Wix member portal and then back to your dashboard.
+          </p>
 
           <div className="pt-6 text-center border-t border-slate-300">
             <p className="text-slate-600 text-sm">
