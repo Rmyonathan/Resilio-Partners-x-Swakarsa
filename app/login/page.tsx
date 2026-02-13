@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 type LoginPageProps = {
   searchParams?: Promise<{
     callbackUrl?: string;
+    redirect?: string;
     [key: string]: string | string[] | undefined;
   }>;
 };
@@ -20,7 +21,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
   if (session?.user) {
-    const callbackUrlParam = resolvedSearchParams?.callbackUrl;
+    const callbackUrlParam = resolvedSearchParams?.callbackUrl || resolvedSearchParams?.redirect;
 
     // Jika NextAuth mengirim callbackUrl (misalnya saat user diarahkan dari /lab),
     // gunakan itu sebagai prioritas. Kalau tidak ada, default ke /lab.
@@ -31,5 +32,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     return redirect("/lab");
   }
 
-  return <LoginPageClient />;
+  // Pass redirect URL to LoginPageClient
+  const redirectUrl = resolvedSearchParams?.redirect || resolvedSearchParams?.callbackUrl;
+  return <LoginPageClient redirectUrl={typeof redirectUrl === 'string' ? redirectUrl : undefined} />;
 }

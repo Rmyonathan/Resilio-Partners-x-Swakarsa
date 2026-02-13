@@ -4,12 +4,25 @@ import { authenticate } from '../../lib/auth-actions';
 import { useActionState } from 'react'; // Ganti useFormState dengan useActionState
 import { useFormStatus } from 'react-dom';
 import { Lock, Loader2, AlertCircle } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
-export default function LoginForm() {
+export default function LoginForm({ redirectUrl }: { redirectUrl?: string }) {
+  const searchParams = useSearchParams();
+  // Get redirect URL from props, search params, or callbackUrl
+  const finalRedirectUrl = redirectUrl || searchParams.get('redirect') || searchParams.get('callbackUrl') || undefined;
+  
+  // Create a wrapper function that adds redirect URL to form data
+  const authenticateWithRedirect = async (formData: FormData) => {
+    if (finalRedirectUrl) {
+      formData.append('redirectUrl', finalRedirectUrl);
+    }
+    return authenticate(undefined, formData);
+  };
+
   // PERUBAHAN DI SINI:
   // React 19 mengubah useFormState menjadi useActionState
   // Return value-nya juga sedikit berbeda (ada isPending di index ke-2), tapi logic utamanya sama.
-  const [errorMessage, dispatch, isPending] = useActionState(authenticate, undefined);
+  const [errorMessage, dispatch, isPending] = useActionState(authenticateWithRedirect, undefined);
 
   return (
     <form action={dispatch} className="space-y-6">

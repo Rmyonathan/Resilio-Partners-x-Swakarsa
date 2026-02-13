@@ -12,6 +12,7 @@ export async function authenticate(
   try {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
+    const redirectUrl = formData.get('redirectUrl') as string | null;
 
     // 1. SMART REDIRECT: Cek Role dulu sebelum login
     // Kita intip database sebentar untuk tahu siapa yang mau masuk
@@ -22,7 +23,11 @@ export async function authenticate(
 
     let destination = '/lab'; // Default landing page (untuk CLIENT)
 
-    if (user) {
+    // If redirectUrl is provided, use it (e.g., from email link)
+    if (redirectUrl) {
+      destination = redirectUrl;
+    } else if (user) {
+      // Otherwise, use role-based redirect
       if (user.role === 'ADMIN') {
         destination = '/'; // Redirect Admin to agency homepage (so they can access navbar)
       } else if (user.role === 'CONSULTANT') {

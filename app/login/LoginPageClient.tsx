@@ -6,7 +6,7 @@ import LoginForm from "../components/platform/LoginForm";
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
-export default function LoginPageClient() {
+export default function LoginPageClient({ redirectUrl }: { redirectUrl?: string }) {
   const [atomicMotionAnimation, setAtomicMotionAnimation] = useState<any>(null);
   const [createAccountAnimation, setCreateAccountAnimation] = useState<any>(null);
   const wixLoginUrl = process.env.NEXT_PUBLIC_WIX_LOGIN_URL ?? "";
@@ -101,7 +101,7 @@ export default function LoginPageClient() {
           </div>
 
           {/* Email / Password Login */}
-          <LoginForm />
+          <LoginForm redirectUrl={redirectUrl} />
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-4">
