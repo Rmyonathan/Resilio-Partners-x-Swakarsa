@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 // Format Tanggal Helper
 const formatDate = (date: Date) => {
@@ -46,6 +48,14 @@ async function handleApprove(formData: FormData) {
 }
 
 export default async function AdminDashboard() {
+  // Security: Only ADMIN users can access this page
+  const session = await auth();
+  const user = session?.user as any;
+  
+  if (!session || user?.role !== 'ADMIN') {
+    redirect('/'); // Redirect non-admin users to home page
+  }
+
   // Ambil semua data secara paralel untuk performa
   const [messages, applicants, projects, preMeetingAnswers] = await Promise.all([
     getContactMessages(),

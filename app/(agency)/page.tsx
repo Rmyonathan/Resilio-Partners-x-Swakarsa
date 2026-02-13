@@ -13,17 +13,30 @@ import WarmWaves from "@/app/components/visuals/WarmWaves";
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-export default async function AgencyHome() {
+type AgencyHomeProps = {
+  searchParams?: Promise<{
+    newUser?: string;
+    [key: string]: string | string[] | undefined;
+  }>;
+};
+
+export default async function AgencyHome({ searchParams }: AgencyHomeProps) {
   // Smart redirect if logged in (but keep admins on agency pages to access navbar)
   const session = await auth();
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
   
   if (session?.user) {
     const role = (session.user as any).role;
     
     // Admins stay on agency pages to access navbar - they can use "Admin Dashboard" link
     // if (role === 'ADMIN') redirect('/admin'); // Removed - admins stay here
-    if (role === 'CLIENT') redirect('/lab');
-    if (role === 'CONSULTANT') redirect('/guild');
+    
+    // Only redirect CONSULTANT users to their dashboard
+    // ADMIN and other users stay on home page
+    if (role === 'CONSULTANT') {
+      redirect('/guild');
+    }
+    // Note: CLIENT role redirect removed as per user requirement
   }
 
   return (

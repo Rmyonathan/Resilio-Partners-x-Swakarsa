@@ -21,7 +21,7 @@ export async function authenticate(
       select: { role: true },
     });
 
-    let destination = '/lab'; // Default landing page (untuk CLIENT)
+    let destination = '/'; // Default landing page
 
     // If redirectUrl is provided, use it (e.g., from email link)
     if (redirectUrl) {
@@ -33,6 +33,7 @@ export async function authenticate(
       } else if (user.role === 'CONSULTANT') {
         destination = '/guild'; // Redirect Konsultan
       }
+      // Note: CLIENT role redirect removed as per user requirement
     }
 
     // 2. Eksekusi Login NextAuth dengan tujuan spesifik
@@ -145,6 +146,13 @@ export async function loginWithWix(wixUser: any) {
 
     console.log('🔄 Server Action: Processing Wix User', wixUser.email);
 
+    // Check if user already exists before upsert
+    const existingUser = await prisma.user.findUnique({
+      where: { email: wixUser.email },
+    });
+
+    const isNewUser = !existingUser;
+
     // Password dummy karena user login via Wix (tidak digunakan untuk login biasa)
     const dummyPassword = await bcrypt.hash('wix_placeholder_password', 10);
 
@@ -158,21 +166,36 @@ export async function loginWithWix(wixUser: any) {
       create: {
         email: wixUser.email,
         name: wixUser.name || (wixUser.email as string).split('@')[0],
-        role: 'CLIENT', // Default role di schema Anda
+        role: 'CLIENT', // New Wix users are created as regular users (CLIENT)
         password: dummyPassword,
       },
     });
 
-    console.log('✅ User synced to DB:', user.id);
+    console.log('✅ User synced to DB:', user.id, isNewUser ? '(NEW USER - CLIENT)' : '(EXISTING USER)');
+
+    // Determine redirect destination
+    // New users (CLIENT) stay on home page - they can't access admin dashboard
+    // Only manually promoted ADMIN users can access admin
+    let redirectDestination = '/';
+    
+    // For existing users, redirect based on their role
+    if (!isNewUser) {
+      if (user.role === 'ADMIN') {
+        redirectDestination = '/'; // Admin stays on home page
+      } else if (user.role === 'CONSULTANT') {
+        redirectDestination = '/guild';
+      } else if (user.role === 'CLIENT') {
+        redirectDestination = '/'; // CLIENT users stay on home page
+      }
+    }
 
     // Eksekusi Login NextAuth
     // Mengirim flag khusus 'wixLogin' agar auth.ts tahu ini login bypass password
     await signIn('credentials', {
       email: wixUser.email,
       wixLogin: 'true',
-      // Selalu redirect ke home Next.js pada origin yang sama dengan callback.
-      // (Kalau nanti Anda map custom domain ke Vercel, ini otomatis ikut domain tersebut.)
-      redirectTo: '/',
+      // Redirect based on whether user is new or existing
+      redirectTo: redirectDestination,
     });
 
     // Jika signIn sukses, eksekusi biasanya tidak akan sampai ke sini karena terjadi redirect.
