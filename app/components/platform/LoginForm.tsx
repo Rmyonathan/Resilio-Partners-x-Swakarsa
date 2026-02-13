@@ -11,12 +11,16 @@ export default function LoginForm({ redirectUrl }: { redirectUrl?: string }) {
   // Get redirect URL from props, search params, or callbackUrl
   const finalRedirectUrl = redirectUrl || searchParams.get('redirect') || searchParams.get('callbackUrl') || undefined;
   
-  // Create a wrapper function that adds redirect URL to form data
-  const authenticateWithRedirect = async (formData: FormData) => {
+  // Create a wrapper function that matches useActionState signature
+  // useActionState expects: (prevState: StateType, formData: FormData) => Promise<StateType>
+  const authenticateWithRedirect = async (
+    prevState: string | undefined,
+    formData: FormData
+  ): Promise<string | undefined> => {
     if (finalRedirectUrl) {
       formData.append('redirectUrl', finalRedirectUrl);
     }
-    return authenticate(undefined, formData);
+    return authenticate(prevState, formData);
   };
 
   // PERUBAHAN DI SINI:
