@@ -82,38 +82,16 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     },
   },
   // === FIX FOR WIX IFRAME: Cookie Configuration ===
-  // Di production, kita pakai cookie khusus untuk dukung iframe cross-origin (Wix).
-  // Di development (localhost), biarkan konfigurasi default supaya cookie tetap terset di HTTP.
-  ...(process.env.NODE_ENV === 'production'
-    ? {
-        cookies: {
-          sessionToken: {
-            name: `__Secure-authjs.session-token`, // Must start with __Secure-
-            options: {
-              httpOnly: true,
-              sameSite: 'none', // Essential for iframes
-              path: '/',
-              secure: true, // Essential for iframes (requires HTTPS)
-            },
-          },
-          callbackUrl: {
-            name: `__Secure-authjs.callback-url`,
-            options: {
-              sameSite: 'none',
-              path: '/',
-              secure: true,
-            },
-          },
-          csrfToken: {
-            name: `__Host-authjs.csrf-token`,
-            options: {
-              httpOnly: true,
-              sameSite: 'none',
-              path: '/',
-              secure: true,
-            },
-          },
-        },
-      }
-    : {}),
+  // WAJIB supaya browser tidak memblokir sesi login karena beda domain (Wix vs Vercel)
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'none', // INI KUNCINYA: allow cross-site cookie
+        path: '/',
+        secure: true,
+      },
+    },
+  },
 });
