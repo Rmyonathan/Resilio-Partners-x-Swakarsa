@@ -372,7 +372,7 @@ export async function submitAriseApplication(formData: FormData) {
                     </div>
                     
                     <p style="margin-top: 30px;">
-                      <a href="${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/portal?redirect=/admin/applications/${application.id}" 
+                      <a href="https://resilio-partners.com/portal?redirect=/admin/applications/${application.id}" 
                          style="display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 5px;">
                         View Full Application in Admin Panel
                       </a>
